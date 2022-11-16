@@ -1,14 +1,14 @@
-import { getToken } from "../utils/utlis"
 import appAxios from "./appAxios"
 
-
 // get request
-export const makeGetRequest = (url) => {
-    return appAxios.get(url,{ headers: { "Authorization": `Bearer ${getToken()}`}})
+export const makeGetRequest = async (url) => {
+    const {data} = await appAxios.get(url)
+    return data
 }
 // post req
-export const makePostRequest = (url, body) => {
-    return appAxios.post(url, body)
+export const makePostRequest = async (url, body) => {
+    const { data } = await  appAxios.post(url, body)
+    return data
 }
 
 
