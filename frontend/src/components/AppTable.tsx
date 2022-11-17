@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { cloneElement } from 'react'
 import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
@@ -15,78 +14,90 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import { BiTrash, BiEditAlt } from 'react-icons/bi';
 
- const defaultData = [
-  {
-    id: 1,
-    time: "3:00",
-    goalname: 'sharingan'
-  },
-  {
-    id: 2,
-    time: "4:00",
-    goalname: 'shadowclone'
-  },
-  {
-    id: 3,
-    time: "9:00",
-    goalname: 'hokage'
-  },
-]
+// @ts-ignore
+function AppTable({ tableData, handleEdit, handleDelete }) {
 
-const columnHelper = createColumnHelper()
+  type TableDataType = {
+    _id: string
+    goalname: string
+    createdAt: string
+  }
+  const columnHelper = createColumnHelper<TableDataType>()
 
-const columns = [
-//@ts-ignore
-  columnHelper.accessor('id', {
-  cell: info => info.getValue()
-  }),
-//@ts-ignore
-  columnHelper.accessor('goalname', {
-    cell: info => info.getValue()
-  }),
-//@ts-ignore
-    columnHelper.accessor('time', {
-      cell: info => info.getValue()
-      }),
-]
+  const getTime = (input: string | number | Date) => {
+    const date = new Date(input);
+    const month = date.getMonth();
+    const year = date.getUTCFullYear();
+    return date.getDate() + ":" + month + ":" + year
+  }
+
+  const columns = [
+    columnHelper.accessor('_id', {
+      header: () => "ID",
+      // cell: info => info.getValue(),
+    }),
+    columnHelper.accessor("goalname", {
+    }),
+    columnHelper.accessor('createdAt', {
+      header: () => "Created At",
+      cell: info => getTime(info.getValue()),
+    }),
+    columnHelper.display({
+      id: "edit",
+      cell: () => <button onClick={handleEdit}><BiEditAlt /></button>
+    }),
+    columnHelper.display({
+      id: "delete",
+      cell: ({ cell: { row } }) => <button onClick={() => handleDelete(row.original)}><BiTrash /></button>
+    })
+  ];
+
+  const [data, setData] = React.useState(() => [...tableData])
+  // const rerender = React.useReducer(() => ({}), {})[1]
 
 
-
-
-
-
-
-
-function AppTable() {
-
-//@ts-ignore
-  const table = useReactTable({defaultData, columns,  getCoreRowModel: getCoreRowModel()})
-// console.log(table)
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  })
+  const rowsCount = table.getRowModel().rows.length;
   return (
-    <div>
-      <TableContainer  borderRadius="0.75em" bg="whiteAlpha.700">
-        <Table variant='simple'>
+    <>
+      <TableContainer borderRadius="0.75em" bg="whiteAlpha.700" my="3em">
+        <Table variant='simple' width="100%">
           <Thead bg="blue.700">
-            {table.getHeaderGroups().map(headGroup => (<Tr key={headGroup.id}>
-              {headGroup.headers.map(header => <Th color="whiteAlpha.900" key={header.id}>{flexRender(
+            {table.getHeaderGroups().map(headerGroup => (
+              <Tr key={headerGroup.id}>
+                {headerGroup.headers.map(header => (
+                  <Th key={header.id} color="whiteAlpha.900">
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
                         header.column.columnDef.header,
                         header.getContext()
-              )}</Th>)              
-              }
-            </Tr>))}
+                      )}
+                  </Th>
+                ))}
+              </Tr>
+            ))}
           </Thead>
           <Tbody>
-            {/* {table.getRowModel().rows.map(eachrow => (<Tr key={eachrow.id}>
-              {eachrow.getVisibleCells().map(cell => (
-                <Td borderColor="blue.700" key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </Td>))}
-            </Tr>))} */}
+            {table.getRowModel().rows.map((row, rowIndex) => (
+              <Tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <Td key={cell.id} borderColor={(rowsCount - 1 === rowIndex) ? "whiteAlpha.50" : "blue.500"}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </Td>
+                ))}
+              </Tr>
+            ))}
           </Tbody>
         </Table>
       </TableContainer>
-    </div>
+    </>
   )
 }
 

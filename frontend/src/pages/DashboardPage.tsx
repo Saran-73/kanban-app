@@ -1,13 +1,13 @@
 import React from 'react'
 import { Box, Flex, Text, Input, Button } from '@chakra-ui/react'
 import { useMutation, useQuery, useQueryClient } from "react-query"
-import { CREATE_GOAL_API, GET_GOALS_API } from '../api/url'
-import { makeGetRequest, makePostRequest } from '../api/utlis'
+import { CREATE_GOAL_API, DELETE_GOAL_API, GET_GOALS_API } from '../api/url'
+import { makeDeleteRequest, makeGetRequest, makePostRequest } from '../api/utlis'
 import AppTable from '../components/AppTable'
 
 function DashboardPage() {
   const [newGoal, setNewGoal] = React.useState('');
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
 
   const { data } = useQuery(GET_GOALS_API, () => makeGetRequest(GET_GOALS_API));
@@ -21,15 +21,33 @@ function DashboardPage() {
          setNewGoal("")
       }
     });
-
+    //@ts-ignore
+  const { mutate: deleteMutation } = useMutation((body) => makeDeleteRequest(DELETE_GOAL_API(body.id)), {
+    onSuccess: () => {
+      // queryClient.invalidateQueries({ queryKey: [GET_GOALS_API] })
+      alert('done delete')
+    },
+    onError: (err) => {
+      console.log(err)
+    }
+  })
+  
+  
   const handleSubmit = () => {
     if (newGoal === '') return;
     mutate({ goalname: newGoal })
   }
+  const handleEdit = () => {
+  }
+
+  const handleDelete = (rowContent: { _id: string }) => {
+    //@ts-ignore
+     deleteMutation({id: rowContent._id})
+  }
 
   return (
     <Box minH="100vh">
-      <Box maxW={{ base: "90vw", md: "50vw" }} marginInline="auto">
+      <Box maxW={{ base: "90vw", md: "60vw" }} marginInline="auto">
       <Box p="1em" marginInline="auto" mt="3em">
         <Flex direction="column" gap="1em" >
           <Text as="h3">Create a Goal</Text>
@@ -44,10 +62,7 @@ function DashboardPage() {
           <Button onClick={handleSubmit}>Create</Button>
         </Flex>
       </Box>
-      <Box p="1em" border="2px solid white" marginInline="auto" my="3em">
-        {data?.map((eachGoal: { goalname: string }) => <h2 key={eachGoal.goalname}>{eachGoal.goalname}</h2>)}
-      </Box>
-        <AppTable />
+        {data && <AppTable tableData={data} handleEdit={handleEdit} handleDelete={handleDelete} />}
         </Box>
     </Box>
   )

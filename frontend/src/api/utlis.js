@@ -11,4 +11,9 @@ export const makePostRequest = async (url, body) => {
     return data
 }
 
+// delete req
+export const makeDeleteRequest = async (url) => {
+    const { data } = await appAxios.delete(url)
+    return data
+}
 
