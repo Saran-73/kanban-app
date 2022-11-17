@@ -29,7 +29,8 @@ function DashboardPage() {
 
   return (
     <Box minH="100vh">
-      <Box maxW="50vw" p="1em" border="2px solid gray" marginInline="auto" mt="3em">
+      <Box maxW={{ base: "90vw", md: "50vw" }} marginInline="auto">
+      <Box p="1em" marginInline="auto" mt="3em">
         <Flex direction="column" gap="1em" >
           <Text as="h3">Create a Goal</Text>
           <Input
@@ -43,11 +44,11 @@ function DashboardPage() {
           <Button onClick={handleSubmit}>Create</Button>
         </Flex>
       </Box>
-      <Box maxW="50vw" p="1em" border="2px solid white" marginInline="auto" mt="3em">
+      <Box p="1em" border="2px solid white" marginInline="auto" my="3em">
         {data?.map((eachGoal: { goalname: string }) => <h2 key={eachGoal.goalname}>{eachGoal.goalname}</h2>)}
       </Box>
-
-      <AppTable />
+        <AppTable />
+        </Box>
     </Box>
   )
 }
