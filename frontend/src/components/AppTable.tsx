@@ -1,4 +1,4 @@
-import React, { cloneElement } from 'react'
+import React from 'react'
 import {
   Table,
   Thead,
@@ -34,13 +34,17 @@ function AppTable({ tableData, handleEdit, handleDelete }) {
   }
 
   const columns = [
-    columnHelper.accessor('_id', {
-      header: () => "ID",
-      // cell: info => info.getValue(),
+    columnHelper.display({
+      id: "new id ",
+      header: "sn",
+      cell: ({ cell: { row } }) => <p>{row.index}</p>
     }),
     columnHelper.accessor("goalname", {
+      id: "goalname",
+      header: "goal"
     }),
     columnHelper.accessor('createdAt', {
+      id: "created at",
       header: () => "Created At",
       cell: info => getTime(info.getValue()),
     }),
@@ -50,13 +54,19 @@ function AppTable({ tableData, handleEdit, handleDelete }) {
     }),
     columnHelper.display({
       id: "delete",
-      cell: ({ cell: { row } }) => <button onClick={() => handleDelete(row.original)}><BiTrash /></button>
+      cell: ({ cell: { row } }) => <button onClick={() => handleDelete(row.original)}>
+        <BiTrash />
+      </button>
     })
   ];
 
   const [data, setData] = React.useState(() => [...tableData])
   // const rerender = React.useReducer(() => ({}), {})[1]
 
+
+  React.useEffect(() => {
+    setData(() => [...tableData])
+  }, [tableData])
 
   const table = useReactTable({
     data,
@@ -88,7 +98,7 @@ function AppTable({ tableData, handleEdit, handleDelete }) {
             {table.getRowModel().rows.map((row, rowIndex) => (
               <Tr key={row.id}>
                 {row.getVisibleCells().map((cell) => (
-                  <Td key={cell.id} borderColor={(rowsCount - 1 === rowIndex) ? "whiteAlpha.50" : "blue.500"}>
+                  <Td key={cell.id} borderColor={(rowsCount - 1 === rowIndex) ? "whiteAlpha.50" : "blue.700"}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </Td>
                 ))}
