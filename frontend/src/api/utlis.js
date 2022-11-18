@@ -16,4 +16,8 @@ export const makeDeleteRequest = async (url) => {
     const { data } = await appAxios.delete(url)
     return data
 }
-
+// put 
+export const makePutRequest = async (url, body) => {
+    const { data } = await appAxios.put(url, body)
+    return data
+}

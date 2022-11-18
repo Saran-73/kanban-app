@@ -50,7 +50,7 @@ function AppTable({ tableData, handleEdit, handleDelete }) {
     }),
     columnHelper.display({
       id: "edit",
-      cell: () => <button onClick={handleEdit}><BiEditAlt /></button>
+      cell: ({ cell: { row } }) => <button onClick={() => handleEdit(row.original)}><BiEditAlt /></button>
     }),
     columnHelper.display({
       id: "delete",
