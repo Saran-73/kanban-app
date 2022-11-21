@@ -34,7 +34,7 @@ const createGoal = asyncHandler(async (req, res) => {
 // @access Private
 const updateGoal = asyncHandler(async (req, res) => {
   // get the data form db based on id
-  const GOAL = Goal.findById(req.params.id);
+  const GOAL = await Goal.findById(req.params.id);
 
   if (!GOAL) {
     res.status(400);

@@ -25,7 +25,7 @@ function DashboardPage() {
       }
     });
   //@ts-ignore
-  const { mutate: deleteMutation } = useMutation((body) => makeDeleteRequest(DELETE_GOAL_API(body.id)), {
+  const { mutate: deleteMutation } = useMutation((id) => makeDeleteRequest(DELETE_GOAL_API(id)), {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [GET_GOALS_API] })
       handleToast("Goal Deleted")
@@ -35,16 +35,16 @@ function DashboardPage() {
     }
   })
 
-  // //@ts-ignore
-  // const { mutate: editMutation } = useMutation((body) =>  makePutRequest(UPDATE_GOAL_API(body.id), body), {
-  //     onSuccess: () => {
-  //       queryClient.invalidateQueries({ queryKey: [GET_GOALS_API] })
-  //       handleToast("Goal Updated")
-  //     },
-  //     onError: (err) => {
-  //       console.log(err)
-  //     }
-  //   })
+ //@ts-ignore
+  const { mutate: editMutation } = useMutation(({ id, formBody } ) =>  makePutRequest(UPDATE_GOAL_API(id), formBody), {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: [GET_GOALS_API] })
+        handleToast("Goal Updated")
+      },
+      onError: (err) => {
+        console.log(err)
+      }
+    })
 
 
   const handleToast = (title: string) =>  toast({
@@ -55,20 +55,23 @@ function DashboardPage() {
   })
 
   const handleSubmit = () => {
-    if (newGoal === '') return;
+    if (newGoal.trim() === "") return;
     mutate({ goalname: newGoal })
   }
 
   const handleEdit = (rowContent: { _id: string }) => {
-    // const updatedGoal = window.prompt("Enter the new Goal");
-    // editMutation({ id: rowContent._id })
+    const updatedGoal = window.prompt("Enter the new Goal");
+    if (updatedGoal) {
+         //@ts-ignore
+    editMutation({id: rowContent._id , formBody: { goalname: updatedGoal }})
+    }
   }
 
   const handleDelete = (rowContent: { _id: string, goalname: string }) => {
     const isConfirm = window.confirm(`Are you sure you want to delete ${rowContent.goalname}`)
     if (isConfirm) {
          //@ts-ignore
-      deleteMutation({ id: rowContent._id })
+      deleteMutation(rowContent._id)
     }
   }
 
