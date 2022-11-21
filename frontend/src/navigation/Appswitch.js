@@ -1,6 +1,9 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
+import { useQuery } from "react-query";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import { IS_USER_AUTHENTICATED_API } from "../api/url";
+import { makeGetRequest } from "../api/utlis";
 import AppNavbar from "../components/AppNavbar";
 import DashboardPage from "../pages/DashboardPage";
 import ErrorPage from "../pages/ErrorPage";
@@ -25,8 +28,8 @@ import { APP_DASHBOARD, APP_LOGIN_PAGE, APP_REGISTER_PAGE } from "./routes";
 // };
 
 function Appswitch() {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
-  const navigate = useNavigate();
+  // const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  // const navigate = useNavigate();
   // let location = useLocation();
 
   // const isUserAuthenticated = () => {
@@ -38,26 +41,29 @@ function Appswitch() {
   //     navigate(APP_LOGIN_PAGE);
   //   }
   // };
+  
+  const { data: currentUser } = useQuery(IS_USER_AUTHENTICATED_API, () =>
+    makeGetRequest(IS_USER_AUTHENTICATED_API)
+  );
+  console.log(currentUser);
 
-  React.useEffect(() => {
-    // isUserAuthenticated();
-  }, []);
+  // React.useEffect(() => {
+  //    isUserAuthenticated();
+  // }, []);
 
   return (
     <AppNavbar>
-    <Box minH="100vh">
-      <Routes>
-        <Route path={APP_REGISTER_PAGE} element={<RegisterPage />} />
-        <Route path={APP_LOGIN_PAGE} element={<LoginPage />} />
-
-        {/* {isAuthenticated && ( */}
+      <Box minH="100vh">
+        <Routes>
+          <Route path={APP_REGISTER_PAGE} element={<RegisterPage />} />
+          <Route path={APP_LOGIN_PAGE} element={<LoginPage />} />
+          {/* {isAuthenticated && ( */}
           <Route path={APP_DASHBOARD} element={<DashboardPage />} />
-        {/* )} */}
-        <Route path="*" element={<ErrorPage />} />
+          {/* )} */}
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Box>
-      </AppNavbar>
-      
+    </AppNavbar>
   );
 }
 

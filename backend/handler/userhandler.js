@@ -78,7 +78,7 @@ const loginUser = asynchandler(async (req, res) => {
   }
 });
 
-// @desc register the user
+// @desc get the user 
 // @route GET /api/user/:name
 // @access Private
 const getUserData = asynchandler(async (req, res) => {

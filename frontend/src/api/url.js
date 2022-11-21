@@ -9,7 +9,7 @@ export const REGISTE_USER_API = '/user'
 // check is user authenticated
 // need token authentication
 // GET
-export const IS_USER_AUTHENTICATED_API = (username) =>  `/user/${username}`
+export const IS_USER_AUTHENTICATED_API = `/user/getuser`
 
 // get goals
 // need token authentication

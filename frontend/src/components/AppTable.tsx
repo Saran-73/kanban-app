@@ -35,7 +35,7 @@ function AppTable({ tableData, handleEdit, handleDelete }) {
 
   const columns = [
     columnHelper.display({
-      id: "new id ",
+      id: "Serial number",
       header: "sn",
       cell: ({ cell: { row } }) => <p>{row.index}</p>
     }),
@@ -62,7 +62,6 @@ function AppTable({ tableData, handleEdit, handleDelete }) {
 
   const [data, setData] = React.useState(() => [...tableData])
   // const rerender = React.useReducer(() => ({}), {})[1]
-
 
   React.useEffect(() => {
     setData(() => [...tableData])
