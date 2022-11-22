@@ -41,7 +41,7 @@ function LoginPage() {
 
   return (
     <Flex justifyContent="center" alignItems="center" height="100vh">
-      <Box p="1em 2em" border="5px solid white" borderRadius="16px" bg="whiteAlpha.300">
+      <Box p="1em 2em" borderRadius="16px" bg="whiteAlpha.400">
         <Box maxW="420px" pt="1em" pb="1em">
           <form onSubmit={handleSubmit(onSubmit)}>
             <label>Email</label>

@@ -44,7 +44,7 @@ function RegisterPage() {
 
   return (
     <Flex justifyContent="center" alignItems="center" height="100vh">
-      <Box p="2em" border="1px solid red" borderRadius="8px" >
+      <Box p="2em"bg="whiteAlpha.400" borderRadius="16px" >
         <Box maxW="420px" >
           <form onSubmit={handleSubmit(onSubmit)}>
             <AppInput

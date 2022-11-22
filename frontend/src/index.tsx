@@ -10,8 +10,10 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // staleTime: Infinity,
+      staleTime: Infinity,
       refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      retry: false,
     }
   }
 })
