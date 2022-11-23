@@ -6,6 +6,7 @@ import { makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } fr
 import AppTable from '../components/AppTable'
 import AppNavbar from '../components/AppNavbar'
 import useHandleToast from '../hooks/useHandleToast'
+import AppSidebar from '../components/AppSidebar'
 
 
 function DashboardPage() {
@@ -76,7 +77,7 @@ function DashboardPage() {
 
   return (
     <AppNavbar>
-
+<AppSidebar>
       <Box maxW={{ base: "90vw", md: "60vw" }} marginInline="auto">
         <Box p="1em" marginInline="auto" mt="3em">
           <Flex direction="column" gap="1em" >
@@ -99,7 +100,8 @@ function DashboardPage() {
           </Flex>
         </Box>
         {data?.length >= 1 && <AppTable tableData={data} handleEdit={handleEdit} handleDelete={handleDelete} />}
-      </Box>
+        </Box>
+        </AppSidebar>
     </AppNavbar>
   )
 }
