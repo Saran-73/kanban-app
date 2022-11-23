@@ -1,17 +1,19 @@
 import React from 'react'
-import { Box, Flex, Text, Input, Button, useToast } from '@chakra-ui/react'
+import { Box, Flex, Text, Input, Button } from '@chakra-ui/react'
 import { useMutation, useQuery, useQueryClient } from "react-query"
 import { CREATE_GOAL_API, DELETE_GOAL_API, GET_GOALS_API, UPDATE_GOAL_API } from '../api/url'
 import { makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } from '../api/utlis'
 import AppTable from '../components/AppTable'
 import AppNavbar from '../components/AppNavbar'
+import useHandleToast from '../hooks/useHandleToast'
 
 
 function DashboardPage() {
   const [newGoal, setNewGoal] = React.useState('');
   const queryClient = useQueryClient();
   const inputRef = React.useRef(null);
-  const toast = useToast();
+  const {handleToast} = useHandleToast()
+
 
   const { data } = useQuery(GET_GOALS_API, () => makeGetRequest(GET_GOALS_API));
 
@@ -22,17 +24,20 @@ function DashboardPage() {
       onSuccess() {
         queryClient.invalidateQueries({ queryKey: [GET_GOALS_API] })
         setNewGoal("")
-        handleToast("New Goal Succesfully created")
+        handleToast("New Goal Succesfully created", "success")
+      },
+      onError: (err) =>{
+        handleToast("Something went wrong", "error")
       }
     });
   //@ts-ignore
   const { mutate: deleteMutation } = useMutation((id) => makeDeleteRequest(DELETE_GOAL_API(id)), {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [GET_GOALS_API] })
-      handleToast("Goal Deleted")
+      handleToast("Goal Deleted", "success")
     },
     onError: (err) => {
-      console.log(err)
+      handleToast("Something went wrong", "error")
     }
   })
 
@@ -40,19 +45,12 @@ function DashboardPage() {
   const { mutate: editMutation } = useMutation(({ id, formBody }) => makePutRequest(UPDATE_GOAL_API(id), formBody), {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [GET_GOALS_API] })
-      handleToast("Goal Updated")
+      handleToast("Goal Updated", "success")
     },
     onError: (err) => {
-      console.log(err)
+      handleToast("Something went wrong", "error")
+      // console.log(err)
     }
-  })
-
-
-  const handleToast = (title: string) => toast({
-    title: title,
-    status: 'success',
-    duration: 1500,
-    isClosable: true,
   })
 
   const handleSubmit = () => {

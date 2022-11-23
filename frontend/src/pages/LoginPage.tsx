@@ -7,6 +7,7 @@ import { makePostRequest } from '../api/utlis';
 import { LOGIN_USER_API } from '../api/url';
 import { useNavigate, Link } from "react-router-dom";
 import { APP_DASHBOARD, APP_REGISTER_PAGE } from '../navigation/routes';
+import useHandleToast from '../hooks/useHandleToast';
 
 type FormType = {
   email: string,
@@ -16,6 +17,7 @@ type FormType = {
 function LoginPage() {
   const setTokenInZustand = useStore(state => state.setToken)
   const setIsAuthorised = useStore((state) => state.setIsAuthorised)
+  const {handleToast} = useHandleToast()
 
   const navigate = useNavigate()
 
@@ -28,9 +30,14 @@ function LoginPage() {
         localStorage.setItem("token", data.token)
         setIsAuthorised(true)
         navigate(APP_DASHBOARD)
+        // refresh the page , a temporary solution which prevents 
+        // the user from going back to login  page
+        navigate(0)
       },
       onError(err) {
-        console.log(err)
+        //@ts-ignore
+        handleToast(err.response.data.message, "error")
+        // console.log(err)
       }
     }
   )
@@ -40,6 +47,7 @@ function LoginPage() {
   const onSubmit = (data: { email: string, password: string }) => {
     mutate({ email: data.email, password: data.password })
   }
+
 
 
   return (
