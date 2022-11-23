@@ -3,9 +3,7 @@ import Appswitch from './navigation/Appswitch';
 
 function App() {
   return (
-    <div className="App">
-      <Appswitch />
-    </div>
+    <Appswitch />
   );
 }
 

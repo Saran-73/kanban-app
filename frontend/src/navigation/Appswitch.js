@@ -1,95 +1,100 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
-import { useQuery } from "react-query";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import {
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { IS_USER_AUTHENTICATED_API } from "../api/url";
 import { makeGetRequest } from "../api/utlis";
-import AppNavbar from "../components/AppNavbar";
+import Layout from "../components/Layout";
 import DashboardPage from "../pages/DashboardPage";
-import ErrorPage from "../pages/ErrorPage";
+import NotFound from "../pages/NotFound";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
-import { getApiToken } from "../utils/utlis";
+import Unauthorised from "../pages/Unauthorised";
 import {
   APP_DASHBOARD,
   APP_LISTING_PAGE,
   APP_LOGIN_PAGE,
   APP_REGISTER_PAGE,
+  APP_UNAUTHORISED_PAGE,
 } from "./routes";
+import ListingPage from "../pages/ListingPage";
+import RequireAuth from "../components/RequireAuth";
+import useStore from "../store/store";
 
-// const ProtectedRoutes = ({ isAuthenticated }) => {
-//   if (isAuthenticated) {
-//     return (
-//       <DashboardPage />
-//       // <Routes>
-//         // <Route to={APP_DASHBOARD} element={<DashboardPage />} />
-//         // <Route to={APP_REGISTER_PAGE} element={<RegisterPage />} />
-//       // </Routes>
-//     );
-//   }
-
-//   return (<LoginPage />)
-//   // return <Route to={APP_LOGIN_PAGE} element={<LoginPage />} />;
-// };
+// route protection works when interacting with ui but not when changing the url resolve it
 
 function Appswitch() {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(true);
-  // const navigate = useNavigate();
-  // let location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const setIsAuthorised = useStore((state) => state.setIsAuthorised);
+  // const isAuthorised = useStore((state) => state.isAuthorised);
 
-  // const isUserAuthenticated = () => {
-  //   if (getApiToken()) {
-  //     setIsAuthenticated(true);
-  //     // navigate(APP_DASHBOARD)
-  //   } else {
-  //     setIsAuthenticated(false);
-  //     navigate(APP_LOGIN_PAGE);
-  //   }
-  // };
+  React.useEffect(() => {
+      makeGetRequest(IS_USER_AUTHENTICATED_API)
+        .then((data) => {
+          setIsAuthorised(true);
+          if (location.pathname === "/" || location.pathname === "/login") {
+            navigate(APP_DASHBOARD)
+          } else {
+            navigate(location.pathname)
+          }
+        })
+        .catch((err) => {
+          setIsAuthorised(false);
+          navigate(APP_LOGIN_PAGE)
+        });
+  }, []);
 
-  // const { data: currentUser, isSuccess } = useQuery(IS_USER_AUTHENTICATED_API, () =>
-  //   makeGetRequest(IS_USER_AUTHENTICATED_API), {
-  //   onSucess () {
-  //       setIsAuthenticated(true)
-  //   },
-  //   onError() {
-  //     setIsAuthenticated(false)
-  //     }
-  //   }
-  // );
-  // console.log(currentUser);
 
-  React.useEffect(() => {}, []);
-
-  const getRedirectionUrl = () => {
-    // const pathname = window.location.pathname;
-    // if (isAuthenticated && (pathname === "/login" || pathname === '/' || pathname === "/register")) {
-    //   return APP_DASHBOARD;
-    // } else if (!isAuthenticated) {
-    //   return APP_LOGIN_PAGE;
-    // }
+  //  --- remove the inital / from route name -----
+  const makeRouteName = (routeName) => {
+    const removedSlash = routeName.substring(1, routeName.length);
+    return removedSlash;
   };
 
   const protectedRoutes = () => {
     return (
       <>
-        <Route path={APP_DASHBOARD} element={<DashboardPage />} />
-        <Route path={APP_LISTING_PAGE} element={<APP_LISTING_PAGE />} />
+        <Route
+          path={makeRouteName(APP_DASHBOARD)}
+          element={<DashboardPage />}
+        />
+        <Route
+          path={makeRouteName(APP_LISTING_PAGE)}
+          element={<ListingPage />}
+        />
       </>
     );
   };
+
   return (
-    <AppNavbar>
-      <Box minH="100vh">
-        <Routes>
-          {/* <Route path={"/"} element={<Navigate to={getRedirectionUrl()} />} /> */}
-          <Route path={APP_REGISTER_PAGE} element={<RegisterPage />} />
-          <Route path={APP_LOGIN_PAGE} element={<LoginPage />} />
-          {protectedRoutes()}
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
-      </Box>
-    </AppNavbar>
+    <Box minH="100vh">
+      <Routes>
+        <Route path={"/"} element={<Layout />}>
+
+          {/* --- PUBLIC ROUTES ----- */}
+          <Route
+            path={makeRouteName(APP_REGISTER_PAGE)}
+            element={<RegisterPage />}
+          />
+          <Route path={makeRouteName(APP_LOGIN_PAGE)} element={<LoginPage />} />
+          <Route
+            path={makeRouteName(APP_UNAUTHORISED_PAGE)}
+            element={<Unauthorised />}
+          />
+
+          {/* ----- PRIVATE ROUTES ----- */}
+          <Route element={<RequireAuth />}>{protectedRoutes()}</Route>
+
+          {/* --- CATCH ALL ---- */}
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </Box>
   );
 }
 

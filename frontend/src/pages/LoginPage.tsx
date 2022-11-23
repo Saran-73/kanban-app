@@ -15,6 +15,8 @@ type FormType = {
 
 function LoginPage() {
   const setTokenInZustand = useStore(state => state.setToken)
+  const setIsAuthorised = useStore((state) => state.setIsAuthorised)
+
   const navigate = useNavigate()
 
   const { mutate } = useMutation(
@@ -24,6 +26,7 @@ function LoginPage() {
       onSuccess(data) {
         setTokenInZustand({ token: data.token })
         localStorage.setItem("token", data.token)
+        setIsAuthorised(true)
         navigate(APP_DASHBOARD)
       },
       onError(err) {

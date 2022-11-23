@@ -1,8 +1,12 @@
+import { Box } from '@chakra-ui/react';
 import React from 'react'
+import AppNavbar from '../components/AppNavbar';
 
 function ListingPage() {
   return (
-    <div>ListingPage</div>
+    <AppNavbar>
+      <Box>ListingPage</Box>
+    </AppNavbar>
   )
 }
 

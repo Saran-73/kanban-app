@@ -1,9 +1,9 @@
 import React from 'react'
 
-function ErrorPage() {
+function NotFound() {
   return (
     <div>ErrorPage</div>
   )
 }
 
-export default ErrorPage
+export default NotFound
