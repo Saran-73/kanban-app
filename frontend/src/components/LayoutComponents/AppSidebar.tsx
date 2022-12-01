@@ -7,25 +7,31 @@ import {
   AccordionPanel,
   AccordionIcon,
 } from '@chakra-ui/react'
-import { APP_DASHBOARD, APP_LISTING_PAGE } from '../navigation/routes';
+import { APP_DASHBOARD, APP_LISTING_PAGE } from '../../navigation/routes';
 
 //@ts-ignore
 function AppSidebar({ children }) {
   const sideBarContents = [
     {
-      head: "Dashboard",
+      head: "Favourites",
       child: "--Will be an array--",
       link: APP_DASHBOARD
     },
     {
-      head: "Listing",
+      head: "Saved searches",
+      child: "----",
+      link: APP_LISTING_PAGE
+    },
+    {
+      head: "Teams",
       child: "----",
       link: APP_LISTING_PAGE
     }
   ];
   return (
     <Flex w="100vw">
-      <Box h="90.75vh"  width="225px" bg="whiteAlpha.600">
+      <Box h="90.75vh" width="225px" bg="whiteAlpha.600">
+        
         <Accordion allowMultiple allowToggle>
           {sideBarContents.map(each => <AccordionItem>
             <p>

@@ -4,9 +4,9 @@ import { useMutation, useQuery, useQueryClient } from "react-query"
 import { CREATE_GOAL_API, DELETE_GOAL_API, GET_GOALS_API, UPDATE_GOAL_API } from '../api/url'
 import { makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } from '../api/utlis'
 import AppTable from '../components/AppTable'
-import AppNavbar from '../components/AppNavbar'
+import AppNavbar from '../components/LayoutComponents/AppNavbar'
 import useHandleToast from '../hooks/useHandleToast'
-import AppSidebar from '../components/AppSidebar'
+import AppSidebar from '../components/LayoutComponents/AppSidebar'
 
 
 function DashboardPage() {

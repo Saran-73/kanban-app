@@ -1,8 +1,8 @@
 import { Box, Button, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { APP_DASHBOARD, APP_LISTING_PAGE, APP_LOGIN_PAGE } from '../navigation/routes'
-import { getApiToken, removeApiTokenls } from '../utils/utlis'
+import { APP_DASHBOARD, APP_LISTING_PAGE, APP_LOGIN_PAGE } from '../../navigation/routes'
+import { getApiToken, removeApiTokenls } from '../../utils/utlis'
 
 //@ts-ignorets-ignore
 function AppNavbar({ children }) {

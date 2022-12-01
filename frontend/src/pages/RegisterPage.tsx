@@ -6,7 +6,7 @@ import { makePostRequest } from '../api/utlis';
 import { REGISTE_USER_API } from '../api/url';
 import { useMutation } from "react-query";
 import { useForm } from "react-hook-form";
-import AppInput from '../components/AppInput';
+import AppInput from '../components/CustomElements/AppInput';
 
 
 type FormType = {

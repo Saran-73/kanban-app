@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { IS_USER_AUTHENTICATED_API } from "../api/url";
 import { makeGetRequest } from "../api/utlis";
-import Layout from "../components/Layout";
+import Layout from "../components/LayoutComponents/Layout";
 import DashboardPage from "../pages/DashboardPage";
 import NotFound from "../pages/NotFound";
 import LoginPage from "../pages/LoginPage";
@@ -21,7 +21,7 @@ import {
   APP_REGISTER_PAGE,
   APP_UNAUTHORISED_PAGE,
 } from "./routes";
-import ListingPage from "../pages/ListingPage";
+import BoardPage from "../pages/BoardsPage";
 import RequireAuth from "../components/RequireAuth";
 import useStore from "../store/store";
 
@@ -65,7 +65,7 @@ function Appswitch() {
         />
         <Route
           path={makeRouteName(APP_LISTING_PAGE)}
-          element={<ListingPage />}
+          element={<BoardPage />}
         />
       </>
     );
