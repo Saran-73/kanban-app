@@ -1,21 +1,16 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react'
+import BoardPageSection from '../components/BoardPageSection';
 import AppNavbar from '../components/LayoutComponents/AppNavbar';
-import TaskCard from '../components/TaskCard';
 
-function BoardPage() {
-
+function BoardPage() {  
   return (
     <AppNavbar>
-      <Flex>
-        <Box h="95vh" w="30vw">
-          <TaskCard />
-          <TaskCard />
-          <TaskCard />
-
-        </Box>
-        <Box h="95vh" w="30vw"></Box>
-        <Box h="95vh" w="30vw"></Box>
+      <Flex justifyContent="space-evenly" mt="2em" mb="1em">
+        <BoardPageSection heading="TO DO"/>
+        <BoardPageSection heading="IN PROGRESS"/>
+        <BoardPageSection heading="REVIEW" />
+        <BoardPageSection heading="DONE"/>
       </Flex>
     </AppNavbar>
   )

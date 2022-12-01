@@ -16,14 +16,12 @@ const Card = defineStyleConfig({
       boxShadow: 'md',
     },
     taskCard: {
-      w:"300px",
+      // w:"300px",
       h:"170px",
       borderRadius:"0.5em",
       bgColor:"whiteAlpha.900",
       boxShadow:"rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px",
-      mx:"auto",
-      marginTop:"1em",
-      marginBottom:"1em",
+      marginBottom:"1.25em",
     }
   },
   // set the default variant for the card
