@@ -13,6 +13,7 @@ type FormType = {
   name: string,
   email: string,
   password: string,
+  organisation: string,
 }
 
 function RegisterPage() {
@@ -20,7 +21,7 @@ function RegisterPage() {
 
   const { mutate } = useMutation(
     REGISTE_USER_API,
-    (formBody: { name: string, email: string, password: string }) => makePostRequest(REGISTE_USER_API, formBody),
+    (formBody: FormType) => makePostRequest(REGISTE_USER_API, formBody),
     {
       onSuccess(data) {
         navigate(APP_LOGIN_PAGE)
@@ -33,33 +34,47 @@ function RegisterPage() {
 
   const { handleSubmit, register, watch } = useForm<FormType>();
 
-  const onSubmit = (data: { name: string, email: string, password: string }) => {
-    mutate({ name: data.name, email: data.email, password: data.password })
+  const onSubmit = (data: FormType) => {
+    mutate({ name: data.name, email: data.email, password: data.password, organisation: data.organisation })
   }
 
-
-  console.log(watch("name"))
-  console.log(watch("email"))
-  const refInput = React.useRef()
+  console.log(watch("organisation"))
+  // const refInput = React.useRef()
 
   return (
     <Flex justifyContent="center" alignItems="center" height="100vh">
-      <Box p="2em"bg="whiteAlpha.400" borderRadius="16px" >
+      <Box p="2em" bg="whiteAlpha.400" borderRadius="16px" >
         <Box maxW="420px" >
           <form onSubmit={handleSubmit(onSubmit)}>
-            <AppInput
+            <label>
+              Name:
+            </label>
+            <Input type="text" placeholder="your name" size="md" {...register("name", { required: true })} />
+
+            {/* <AppInput
               //@ts-ignore
-              ref={refInput}
+              // ref={refInput}
               type='text'
               placeholderText={'Your Name'}
               size={'md'}
-              InputLabel='Name:'
-              isRequired={true}
+              isRequired
               {...register("name", { required: true })}
-             />
-            {/* <label>Name</label>
-            <Input type="text" placeholder="name" size="md" {...register("name", { required: true })} />
-          */}
+            /> */}
+            <label>
+              Organisation Name:
+            </label>
+            <Input type="text" placeholder="organisation your are in" size="md" {...register("organisation", { required: true })} />
+
+            {/* <AppInput
+              //@ts-ignore
+              // ref={refInput}
+              type='text'
+              placeholderText={'Your Organisation'}
+              size={'md'}
+              isRequired
+              {...register("organisation", { required: true })}
+             /> */}
+
             <label>Email</label>
             <Input type="email" placeholder="email" size="md" {...register("email", { required: true })} />
             <label>Password</label>

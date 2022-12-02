@@ -3,12 +3,9 @@ import React from 'react'
 
 
 const AppInput =
-    React.forwardRef(({ isRequired, type, placeholderText, size, InputLabel, customStyles }: { customStyles?: object, InputLabel: string, isRequired?: boolean, type: string, placeholderText: string, size?: string }, ref) => {
+    React.forwardRef(({ isRequired, type, placeholderText, size, customStyles, props }: { customStyles?: object, isRequired?: boolean, type: string, placeholderText: string, size?: string, props?: any }, ref) => {
+        console.log(props)
         return (
-            <>
-                <label>
-                    {InputLabel}
-                </label>
                 <Input
                     //@ts-ignore
                     ref={ref}
@@ -17,8 +14,8 @@ const AppInput =
                     size={size}
                     style={{ ...customStyles }}
                     required={isRequired}
+                {...props}
                 />
-            </>
         )
     })
 

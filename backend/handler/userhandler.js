@@ -8,10 +8,10 @@ const User = require("../modals/usermodal");
 // @access Public
 const registerUser = asynchandler(async (req, res) => {
   // get the user input from the body
-  const { name, email, password } = req.body;
+  const { name, email, password, organisation } = req.body;
 
   // if any one of them is not present mean throw err
-  if (!email || !name || !password) {
+  if (!email || !name || !password || !organisation) {
     res.status(400);
     throw new Error("Please provide all fields");
   }
@@ -32,15 +32,18 @@ const registerUser = asynchandler(async (req, res) => {
   const createdUser = await User.create({
     name,
     email,
+    organisation,
     password: hashedPassword,
   });
 
   // send the success response with created user data
   if (createdUser) {
+    console.log(createdUser)
     res.status(201).json({
       _id: createdUser.id,
       name: createdUser.name,
       email: createdUser.email,
+      organisation: createdUser.organisation,
       token: generateJwt(createdUser.id),
     });
   } else {
