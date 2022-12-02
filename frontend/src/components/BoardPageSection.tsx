@@ -6,7 +6,7 @@ import AppIcon from './CustomElements/AppIcon';
 
 function BoardPageSection({ heading }: { heading: string }) {
     return (
-        <Box h="95vh" w="330px" px="0.5em">
+        <Box h="95vh" w="20vw" px="0.5em">
             <Flex alignItems="center" justifyContent="space-between" mb="1em" px="4px">
                 <Text as="h2" fontSize="sm" fontWeight="bold" >{heading}</Text>
                 <AppIcon iconName={BiPlus} />

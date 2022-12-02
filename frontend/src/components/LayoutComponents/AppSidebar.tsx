@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
 import {
   Accordion,
@@ -7,31 +7,56 @@ import {
   AccordionPanel,
   AccordionIcon,
 } from '@chakra-ui/react'
-import { APP_DASHBOARD, APP_LISTING_PAGE } from '../../navigation/routes';
+import { APP_DASHBOARD, APP_BOARD_PAGE } from '../../navigation/routes';
+import { Link } from 'react-router-dom';
 
 //@ts-ignore
 function AppSidebar({ children }) {
   const sideBarContents = [
     {
       head: "Favourites",
-      child: "--Will be an array--",
+      child: "---",
       link: APP_DASHBOARD
     },
     {
       head: "Saved searches",
       child: "----",
-      link: APP_LISTING_PAGE
+      link: APP_BOARD_PAGE
     },
     {
       head: "Teams",
       child: "----",
-      link: APP_LISTING_PAGE
+      link: APP_BOARD_PAGE
     }
   ];
+  const sideBarList = [
+    {
+      icon: "",
+      name: "Home",
+      link: APP_DASHBOARD,
+    },
+    {
+      icon: "",
+      name: "Board",
+      link: APP_BOARD_PAGE,
+    },
+    {
+      icon: "",
+      name: "Portfolio",
+      link: "",
+    },
+    {
+      icon: "",
+      name: "Tasks",
+      link: "",
+    },
+  ]
   return (
     <Flex w="100vw">
       <Box h="90.75vh" width="225px" bg="whiteAlpha.600">
-        
+        <Flex direction="column" p="1em" gap="0.45em">
+        {sideBarList.map(each => <Link to={each.link}><Text _hover={{color:"blue.500"}}>{each.name}</Text></Link>)}
+        </Flex>
         <Accordion allowMultiple allowToggle>
           {sideBarContents.map(each => <AccordionItem>
             <p>
@@ -48,7 +73,7 @@ function AppSidebar({ children }) {
           </AccordionItem>)}
         </Accordion>
       </Box>
-      <Box flex="1">
+      <Box>
         {children}
       </Box>
     </Flex>

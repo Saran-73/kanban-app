@@ -16,7 +16,7 @@ import RegisterPage from "../pages/RegisterPage";
 import Unauthorised from "../pages/Unauthorised";
 import {
   APP_DASHBOARD,
-  APP_LISTING_PAGE,
+  APP_BOARD_PAGE,
   APP_LOGIN_PAGE,
   APP_REGISTER_PAGE,
   APP_UNAUTHORISED_PAGE,
@@ -64,7 +64,7 @@ function Appswitch() {
           element={<DashboardPage />}
         />
         <Route
-          path={makeRouteName(APP_LISTING_PAGE)}
+          path={makeRouteName(APP_BOARD_PAGE)}
           element={<BoardPage />}
         />
       </>
