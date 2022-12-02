@@ -74,6 +74,10 @@ const customTheme = extendTheme({
       },
     },
     Input: {
+      baseStyle: {
+        field: {
+        }
+      },
       variants: {
         userInput: {
           field: {
