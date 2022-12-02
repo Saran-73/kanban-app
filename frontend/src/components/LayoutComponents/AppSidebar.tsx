@@ -47,7 +47,7 @@ function AppSidebar({ children }) {
     },
     {
       icon: "",
-      name: "Tasks",
+      name: "Settings",
       link: "",
     },
   ]
@@ -55,15 +55,15 @@ function AppSidebar({ children }) {
     <Flex w="100vw">
       <Box h="90.75vh" width="225px" bg="whiteAlpha.600">
         <Flex direction="column" p="1em" gap="0.45em">
-        {sideBarList.map(each => <Link to={each.link}><Text _hover={{color:"blue.500"}}>{each.name}</Text></Link>)}
+        {sideBarList.map(each => <Link to={each.link}><Text _hover={{color:"blue.600"}}>{each.name}</Text></Link>)}
         </Flex>
         <Accordion allowMultiple allowToggle>
           {sideBarContents.map(each => <AccordionItem>
             <p>
               <AccordionButton _expanded={{bg:"blackAlpha.100"}}>
-                <Box flex='1' textAlign='left' color="blue.900" fontSize="1.15em">
+                <Text flex='1' textAlign='left' color="blue.900" fontSize="1.15em">
                   {each.head}
-                </Box>
+                </Text>
                 <AccordionIcon />
               </AccordionButton>
             </p>
@@ -73,7 +73,7 @@ function AppSidebar({ children }) {
           </AccordionItem>)}
         </Accordion>
       </Box>
-      <Box>
+      <Box flex="1">
         {children}
       </Box>
     </Flex>

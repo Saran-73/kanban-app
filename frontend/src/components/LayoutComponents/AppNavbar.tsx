@@ -37,8 +37,8 @@ function AppNavbar({ children }) {
                 </Flex>
                 <Flex gap="1em" mr="1em" alignItems="center">
                     <Box position="relative">
-                        <Input type="text" size="sm" placeholder="search" pl="24px" color="whiteAlpha.900" />
-                        <AppIcon iconName={BiSearch} customStyles={{ color: "whiteAlpha.700", position: "absolute", top: "9px", left: "5px" }} />
+                        <Input variant="searchInput" type="text" size="sm" placeholder="search"  />
+                        <AppIcon iconName={BiSearch} customStyles={{ color: "blue.700", position: "absolute", top: "9px", left: "8px" }} />
                     </Box>
                     <AppIcon iconName={BiCog} customStyles={{ color: "whiteAlpha.800", fontSize: "2xl", cursor: "pointer" }} />
                     <Menu>

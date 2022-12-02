@@ -85,6 +85,14 @@ const customTheme = extendTheme({
             }
           }
         },
+        searchInput: {
+          field: {
+            bg: "whiteAlpha.800",
+            color: "black",
+            pl: "2em",
+            borderRadius: "1em",
+          }
+        }
       },
     },
     Text: {
