@@ -7,6 +7,7 @@ import { REGISTE_USER_API } from '../api/url';
 import { useMutation } from "react-query";
 import { useForm } from "react-hook-form";
 import AppInput from '../components/CustomElements/AppInput';
+import AppBox from '../components/ChakraOverrides/AppBox';
 
 
 type FormType = {
@@ -43,7 +44,7 @@ function RegisterPage() {
 
   return (
     <Flex justifyContent="center" alignItems="center" height="100vh">
-      <Box p="2em" bg="whiteAlpha.400" borderRadius="16px" >
+      <AppBox variant={"registrationForm"} >
         <Box maxW="420px" >
           <form onSubmit={handleSubmit(onSubmit)}>
             <label>
@@ -79,7 +80,7 @@ function RegisterPage() {
             <Input type="email" placeholder="email" size="md" {...register("email", { required: true })} />
             <label>Password</label>
             <Input type="password" placeholder="password" size="md" {...register("password", { required: true })} />
-            <Button type="submit" bg="blue.300" mt="1em">Register</Button>
+            <Button type="submit" variant="submitButton">Register</Button>
           </form>
         </Box>
         <Text pt="1em">Already have an account?
@@ -87,7 +88,7 @@ function RegisterPage() {
             <Text as="span" color="blue.700"> Login here</Text>
           </Link>
         </Text>
-      </Box>
+      </AppBox>
     </Flex>
   )
 }

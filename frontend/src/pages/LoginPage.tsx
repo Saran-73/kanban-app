@@ -8,6 +8,7 @@ import { LOGIN_USER_API } from '../api/url';
 import { useNavigate, Link } from "react-router-dom";
 import { APP_DASHBOARD, APP_REGISTER_PAGE } from '../navigation/routes';
 import useHandleToast from '../hooks/useHandleToast';
+import  AppBox  from "../components/ChakraOverrides/AppBox";
 
 type FormType = {
   email: string,
@@ -52,14 +53,14 @@ function LoginPage() {
 
   return (
     <Flex justifyContent="center" alignItems="center" height="100vh">
-      <Box p="1em 2em" borderRadius="16px" bg="whiteAlpha.400">
+      <AppBox variant={"loginForm"}>
         <Box maxW="420px" pt="1em" pb="1em">
           <form onSubmit={handleSubmit(onSubmit)}>
             <label>Email</label>
             <Input mt="6px" mb="8px" type="email" placeholder="email" size="md" {...register("email", { required: true })} />
             <label>Password</label>
-            <Input mt="6px" mb="8px" type="password" placeholder="password" size="md" {...register("password", { required: true })} />
-            <Button type="submit" bg="blue.300" mt="1em">Login</Button>
+            <Input  mt="6px" mb="8px" type="password" placeholder="password" size="md" {...register("password", { required: true })} />
+            <Button variant="submitButton" type="submit">Login</Button>
           </form>
         </Box>
         <Text pt="1em">Don't have an account?
@@ -67,7 +68,7 @@ function LoginPage() {
             <Text as="span" color="blue.700"> Register here</Text>
           </Link>
         </Text>
-      </Box>
+      </AppBox>
     </Flex>
   )
 }
