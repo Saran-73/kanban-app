@@ -9,6 +9,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { APP_DASHBOARD, APP_REGISTER_PAGE } from '../navigation/routes';
 import useHandleToast from '../hooks/useHandleToast';
 import  AppBox  from "../components/ChakraOverrides/AppBox";
+import AppFlex from '../components/ChakraOverrides/AppFlex';
 
 type FormType = {
   email: string,
@@ -52,14 +53,16 @@ function LoginPage() {
 
 
   return (
-    <Flex justifyContent="center" alignItems="center" height="100vh">
+    <AppFlex variant='authPage'>
       <AppBox variant={"loginForm"}>
         <Box maxW="420px" pt="1em" pb="1em">
           <form onSubmit={handleSubmit(onSubmit)}>
             <label>Email</label>
-            <Input mt="6px" mb="8px" type="email" placeholder="email" size="md" {...register("email", { required: true })} />
+            {/* @ts-ignore */}
+            <Input mt="6px" mb="8px" type="email" placeholder="email" size="md" {...register("email", { required: true })}  />
             <label>Password</label>
-            <Input  mt="6px" mb="8px" type="password" placeholder="password" size="md" {...register("password", { required: true })} />
+            {/* @ts-ignore */}
+            <Input  mt="6px" mb="8px" type="password" placeholder="password" size="md" {...register("password", { required: true })}  />
             <Button variant="submitButton" type="submit">Login</Button>
           </form>
         </Box>
@@ -69,7 +72,7 @@ function LoginPage() {
           </Link>
         </Text>
       </AppBox>
-    </Flex>
+    </AppFlex>
   )
 }
 

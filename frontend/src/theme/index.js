@@ -36,8 +36,6 @@ const customTheme = extendTheme({
     global: {
       body: {
         backgroundColor: "#F4F3F3",
-        // backgroundImage:
-        //   "linear-gradient(to right top, #daede4, #cee8e3, #c3e2e4, #bbdbe5, #b8d3e5, #b7d1e4, #b5cfe3, #b4cde2, #b2d1e1, #b3d4de, #b5d7db, #badad8)",
       },
     },
   },
@@ -46,13 +44,33 @@ const customTheme = extendTheme({
       600: "#0099cc",
       100: "#005573",
     },
+    brandGrey: {
+      500: "rgba(73,93,109,1)"
+    },
+    brandGreyishBlue: {
+      900: "rgba(49,55,82,1)"
+    }
   },
   components: {
+    AppFlex: {
+      baseStyle: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems:"center",
+        height:"100vh",
+      },
+      variants: {
+        authPage: {
+          backgroundImage: "linear-gradient( 110.3deg,  rgba(73,93,109,1) 4.3%, rgba(49,55,82,1) 96.7% )",
+          // backgroundColor:"#8BC6EC",
+        },
+      }
+    },
     AppBox: {
       baseStyle: {
         p: "1em 2em",
         borderRadius: "16px",
-        bg: "whiteAlpha.900",
+        bg: "#fff",
       },
       variants: {
         formContainer: {},

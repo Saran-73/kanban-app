@@ -8,6 +8,7 @@ import { useMutation } from "react-query";
 import { useForm } from "react-hook-form";
 import AppInput from '../components/CustomElements/AppInput';
 import AppBox from '../components/ChakraOverrides/AppBox';
+import AppFlex from '../components/ChakraOverrides/AppFlex';
 
 
 type FormType = {
@@ -43,7 +44,7 @@ function RegisterPage() {
   // const refInput = React.useRef()
 
   return (
-    <Flex justifyContent="center" alignItems="center" height="100vh">
+    <AppFlex variant="authPage" >
       <AppBox variant={"registrationForm"} >
         <Box maxW="420px" >
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -89,7 +90,7 @@ function RegisterPage() {
           </Link>
         </Text>
       </AppBox>
-    </Flex>
+    </AppFlex>
   )
 }
 

@@ -70,7 +70,7 @@ function BoardPage() {
      // @ts-ignore
     setBoardData(prevBoardData => {
       return prevBoardData.map(eachBoardsSection => {
-
+// remove selected board form the previous section
         // @ts-ignore
             const removeSelectedBoard = eachBoardsSection.contents.filter(eachBoard => choosenBoard.id !== eachBoard.id)
 
@@ -80,7 +80,7 @@ function BoardPage() {
               }
     
           }).map(eachBoardsSection => {
-      // add selected board 
+      // add selected board to the particular section
             if (targetId === eachBoardsSection.id) {
               return {
                 ...eachBoardsSection,
