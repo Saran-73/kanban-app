@@ -16,7 +16,7 @@ interface AppAccordionType{
 
 const AppAccordion = ({ title, endText }: AppAccordionType)=>{
   return (
-    <Accordion allowMultiple allowToggle defaultIndex={[0, 1, 2]}>
+    <Accordion allowToggle  defaultIndex={[0, 1, 2]}>
     <AccordionItem border="0">
       <h2>
         <AccordionButton borderBottom="1px solid lightgrey" px="0" _hover={{bg: "none"}}>
