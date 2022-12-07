@@ -8,6 +8,7 @@ import {
     MenuGroup,
     MenuOptionGroup,
     MenuDivider,
+    Portal,
 } from '@chakra-ui/react'
   
 function AppMenu({ children, menuItems }) {
@@ -20,7 +21,8 @@ function AppMenu({ children, menuItems }) {
         _focus={{ }}
          >
     {children}
-    </MenuButton>
+      </MenuButton>
+      <Portal>
       <MenuList>
         {menuItems.map(eachMenuItem =>
           <MenuItem
@@ -30,7 +32,8 @@ function AppMenu({ children, menuItems }) {
             {eachMenuItem.text}
           </MenuItem>
         )}
-  </MenuList>
+        </MenuList>
+        </Portal>
 </Menu>
   )
 }

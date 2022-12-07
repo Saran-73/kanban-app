@@ -12,7 +12,7 @@ import AppIcon from '../CustomElements/AppIcon'
 import { BiCaretDown, BiCog, BiSearch } from "react-icons/bi";
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import AppAvatar from '../CustomElements/AppAvatar'
-import AppMenu from '../CustomElements/AppMenu'
+import AppMenu from '../AppMenu'
 
 //@ts-ignorets-ignore
 function AppNavbar({ children }) {
