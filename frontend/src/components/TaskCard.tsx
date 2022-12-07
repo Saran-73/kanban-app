@@ -1,7 +1,12 @@
-import { Box, Divider, Text } from '@chakra-ui/react'
+import { Box, Divider, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
-import { EachBoardType } from './BoardSection'
+import { EachBoardType } from '../utils/types/types'
 import AppCard from './ChakraOverrides/AppCard'
+import AppAvatar from './CustomElements/AppAvatar'
+import AppIcon from './CustomElements/AppIcon'
+import AppMenu from './CustomElements/AppMenu'
+import { BiDotsHorizontalRounded } from 'react-icons/bi';
+
 
 function TaskCard({ name, handleDragStart, singleBoardContents }: { name: string, handleDragStart: any , singleBoardContents: EachBoardType}) {
     return (
@@ -10,15 +15,18 @@ function TaskCard({ name, handleDragStart, singleBoardContents }: { name: string
             draggable
             onDragStart={() => {
                 handleDragStart(singleBoardContents)
-                // se(true)
             }}
-            // cursor={s ? "grabbing" : "grab"}
         >
-            <Text>{name}</Text>
-            <Divider />
-            <Box>
+            {/* <Divider /> */}
+            {/* <AppMenu menuItems={[{text:"Edit task"}, {text: "Delete task", color:"red"}]}>
+                <AppIcon iconName={BiDotsHorizontalRounded} />
+            </AppMenu> */}
             
-            </Box>
+            <Text>Work life balance</Text>
+            <Flex alignItems="center" gap="0.45em">
+                <AppAvatar name={name} />
+                <Text fontSize="xs" color="gray.500">19, Jan 2021</Text>
+            </Flex>
         </AppCard>
     )
 }

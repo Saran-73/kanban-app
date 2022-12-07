@@ -1,15 +1,12 @@
-import { Box, Flex, Text } from '@chakra-ui/react'
-import React,{memo} from 'react'
+import { Box, Flex, Text, Tooltip } from '@chakra-ui/react'
+import React, { memo } from 'react'
 import TaskCard from './TaskCard'
 import { BiPlus } from 'react-icons/bi';
 import AppIcon from './CustomElements/AppIcon';
+import { EachBoardType } from '../utils/types/types';
 
-export interface EachBoardType{
-    id: string,
-    name: string
-}
 
-interface BoardSectionType{
+interface BoardSectionType {
     sectionId: string,
     heading: string,
     contents: EachBoardType[],
@@ -19,7 +16,7 @@ interface BoardSectionType{
     handleDragStart: any,
 }
 
-function BoardsSection({ sectionId, heading, contents, handleDragEnter, handleDrop, handleDragOver, handleDragStart }: BoardSectionType ) {
+function BoardsSection({ sectionId, heading, contents, handleDragEnter, handleDrop, handleDragOver, handleDragStart }: BoardSectionType) {
     console.log("IS rendering")
     return (
         <Box
@@ -35,7 +32,12 @@ function BoardsSection({ sectionId, heading, contents, handleDragEnter, handleDr
         >
             <Flex alignItems="center" justifyContent="space-between" mb="1em" px="4px">
                 <Text as="h2" fontSize="sm" fontWeight="bold" >{heading}</Text>
-                <AppIcon iconName={BiPlus} />
+                <Flex gap="1em" alignItems="center">
+                    {/* --- TOOLTIP NOT WORKING AS THE REF NOT GETTING EXPOSED FROM THE ICON ----- */}
+                    <Tooltip hasArrow label='Add Task' bg='gray.300' color='black'>
+                        <AppIcon iconName={BiPlus} />
+                    </Tooltip>
+                </Flex>
             </Flex>
             {contents.map(eachBoard => <TaskCard name={eachBoard.name} handleDragStart={handleDragStart} singleBoardContents={eachBoard} />)}
         </Box>

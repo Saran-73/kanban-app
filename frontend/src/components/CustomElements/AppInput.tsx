@@ -1,6 +1,6 @@
 import { Input } from '@chakra-ui/react'
 import React from 'react'
-
+// import { FC, forwardRef, ReactNode, Ref } from 'react';
 
 const AppInput =
     React.forwardRef(({ isRequired, type, placeholderText, size, customStyles, props }: { customStyles?: object, isRequired?: boolean, type: string, placeholderText: string, size?: string, props?: any }, ref) => {

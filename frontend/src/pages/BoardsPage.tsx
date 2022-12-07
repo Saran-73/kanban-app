@@ -1,8 +1,9 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import React, { useState } from 'react'
-import BoardsSection, { EachBoardType } from '../components/BoardSection';
+import BoardsSection from '../components/BoardSection';
 import AppNavbar from '../components/LayoutComponents/AppNavbar';
 import AppSidebar from '../components/LayoutComponents/AppSidebar';
+import { EachBoardType } from '../utils/types/types';
 
 function BoardPage() {
   const [boardData, setBoardData] = useState([
@@ -67,20 +68,19 @@ function BoardPage() {
     event.preventDefault();
     const targetId = event.target.getAttribute("data-section-Id")
 
-     // @ts-ignore
-    setBoardData(prevBoardData => {
-      return prevBoardData.map(eachBoardsSection => {
-// remove selected board form the previous section
+    setBoardData( (prevBoardData : any) => {
+      return prevBoardData.map((eachBoardsSection: { contents: EachBoardType[]; }) => {
+        // remove selected board form the previous section
         // @ts-ignore
-            const removeSelectedBoard = eachBoardsSection.contents.filter(eachBoard => choosenBoard.id !== eachBoard.id)
-
+        const removeSelectedBoard = targetId ? eachBoardsSection.contents.filter(eachBoard => choosenBoard.id !== eachBoard.id) : null
+        
               return {
                 ...eachBoardsSection,
-                contents: removeSelectedBoard
+                contents: removeSelectedBoard || eachBoardsSection.contents
               }
-    
-          }).map(eachBoardsSection => {
-      // add selected board to the particular section
+        
+          }).map((eachBoardsSection: { id: string; contents: EachBoardType[]; } ) => {
+        // add selected board to the particular section
             if (targetId === eachBoardsSection.id) {
               return {
                 ...eachBoardsSection,
