@@ -64,6 +64,7 @@ function AppTable({ tableData, handleEdit, handleDelete }) {
   // const rerender = React.useReducer(() => ({}), {})[1]
 
   React.useEffect(() => {
+    //  re-render the table when the content updates
     setData(() => [...tableData])
   }, [tableData])
 

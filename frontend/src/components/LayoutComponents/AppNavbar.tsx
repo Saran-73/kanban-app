@@ -3,6 +3,7 @@ import {
     Flex,
     Input,
     Text,
+    useDisclosure,
 } from '@chakra-ui/react'
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -13,11 +14,14 @@ import { BiCaretDown, BiCog, BiSearch } from "react-icons/bi";
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import AppAvatar from '../CustomElements/AppAvatar'
 import AppMenu from '../AppMenu'
+import AppModal from '../AppModal'
 
 //@ts-ignorets-ignore
 function AppNavbar({ children }) {
     const isTokenPresent = getApiToken()
     const navigate = useNavigate();
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
 
     const handleLogout = () => {
         if (isTokenPresent) {
@@ -39,6 +43,7 @@ function AppNavbar({ children }) {
                         <Input variant="searchInput" type="text" size="sm" placeholder="search" />
                         <AppIcon iconName={BiSearch} customStyles={{ color: "blue.700", position: "absolute", top: "9px", left: "8px" }} />
                     </Box>
+                    <button onClick={()=> onOpen()}>click</button>
                     <AppIcon iconName={BsFillPlusCircleFill} customStyles={{ color: "orange", fontSize: "2xl", bg: "white", borderRadius: "50%" }} />
                     <AppIcon iconName={BiCog} customStyles={{ color: "whiteAlpha.800", fontSize: "2xl" }} />
                     <AppMenu menuItems={[{ text: "Log out", onClickHandle: handleLogout }]}>
@@ -51,6 +56,7 @@ function AppNavbar({ children }) {
             </Flex>
             {/* } */}
             {children}
+            <AppModal  isModalOpen={isOpen} onModalClose={onClose} />
         </Box>
     )
 }
