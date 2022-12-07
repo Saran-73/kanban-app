@@ -2,6 +2,9 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const asynchandler = require("express-async-handler");
 const User = require("../modals/usermodal");
+// const registerOrganisation = require('./organisation_handler.js')
+const ORGANISATION_MODAL = require("../modals/organisation_modal.js");
+
 
 // @desc register the user
 // @route POST /api/user
@@ -36,9 +39,19 @@ const registerUser = asynchandler(async (req, res) => {
     password: hashedPassword,
   });
 
-  // send the success response with created user data
+
+  const registerOrganisation = async () => {
+    const resultFromDb = await ORGANISATION_MODAL.create({
+      organisation : createdUser.organisation,
+    })
+    return resultFromDb;
+  }
+  
   if (createdUser) {
-    console.log(createdUser)
+    
+  const oneOrganisation = await registerOrganisation()
+
+  // send the success response with created user data
     res.status(201).json({
       _id: createdUser.id,
       name: createdUser.name,
