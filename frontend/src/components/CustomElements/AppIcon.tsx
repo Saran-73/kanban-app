@@ -6,10 +6,11 @@ type AppIconType = {
   iconName: any;
   customStyles?: any;
   ref?: Ref<any>;
+  onClick?: () => void;
 }
 
-const AppIcon:FC<AppIconType> = forwardRef(({ iconName, customStyles } , ref) => {
-  return <Icon as={iconName}  {...customStyles} ref={ref} cursor="pointer" _hover={{ }} />
+const AppIcon:FC<AppIconType> = forwardRef(({ iconName, customStyles, onClick } , ref) => {
+  return <Icon as={iconName}  {...customStyles} ref={ref} cursor="pointer" _hover={{ }} onClick={onClick} />
 })
 
 export default AppIcon

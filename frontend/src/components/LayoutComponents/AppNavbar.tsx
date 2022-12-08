@@ -12,7 +12,7 @@ import AppMenu from '../AppMenu'
 import AppFlex from '../ChakraOverrides/AppFlex'
 
 //@ts-ignorets-ignore
-function AppNavbar() {
+function AppNavbar({onHamburgerToggle}) {
     const isTokenPresent = getApiToken()
     const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ function AppNavbar() {
     return (
             <AppFlex as="nav" justifyContent="space-between" p="0.6em 1.5em" bg="brandPrimary.300">
               <AppFlex  color="whiteAlpha.900" >
-                <AppIcon iconName={FaBars} />
+                <AppIcon iconName={FaBars} onClick={onHamburgerToggle} />
                     <Text>KANBAN APP</Text>
                 </AppFlex>
                 <Box position="relative">
