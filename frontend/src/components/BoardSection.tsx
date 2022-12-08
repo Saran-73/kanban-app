@@ -20,7 +20,6 @@ function BoardsSection({ sectionId, heading, contents, handleDragEnter, handleDr
     console.log("IS rendering")
     return (
         <Box
-            h="95vh"
             w="20vw"
             p="0.5em"
             borderRadius="0.45em"

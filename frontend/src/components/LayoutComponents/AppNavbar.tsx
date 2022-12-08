@@ -27,7 +27,7 @@ function AppNavbar() {
 
 
     return (
-            <AppFlex as="nav" justifyContent="space-between" p="0.6em 1.5em" bg="blue.700">
+            <AppFlex as="nav" justifyContent="space-between" p="0.6em 1.5em" bg="brandPrimary.300">
               <AppFlex  color="whiteAlpha.900" >
                 <AppIcon iconName={FaBars} />
                     <Text>KANBAN APP</Text>

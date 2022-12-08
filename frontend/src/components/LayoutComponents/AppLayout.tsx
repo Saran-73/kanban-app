@@ -7,12 +7,14 @@ function AppLayout({ children }: any) {
     return (
         <Box w="100vw" h="100vh">
             <AppNavbar />
-            <Flex>
+            <Flex h="100%">
                 <AppSidebar />
-                {children}
+                <Box>
+                    {children}
+                </Box>
             </Flex>
         </Box>
     )
 }
 
-export default AppLayout
+export default AppLayout;

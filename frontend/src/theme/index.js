@@ -45,6 +45,9 @@ const customTheme = extendTheme({
     },
   },
   colors: {
+    brandPrimary: {
+      300: "#363639"
+    },
     brand: {
       600: "#0099cc",
       100: "#005573",

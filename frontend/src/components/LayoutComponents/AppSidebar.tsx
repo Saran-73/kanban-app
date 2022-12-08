@@ -1,5 +1,5 @@
+import React, { useMemo } from 'react'
 import { Box, Flex, Text } from '@chakra-ui/react'
-import React from 'react'
 import {
   Accordion,
   AccordionItem,
@@ -12,7 +12,8 @@ import { Link } from 'react-router-dom';
 
 //@ts-ignore
 function AppSidebar() {
-  const sideBarContents = [
+
+  const sideBarContents = useMemo(() => [
     {
       head: "Favourites",
       child: "---",
@@ -28,8 +29,9 @@ function AppSidebar() {
       child: "----",
       link: APP_BOARD_PAGE
     }
-  ];
-  const sideBarList = [
+  ], []);
+
+  const sideBarList = useMemo(() => [
     {
       icon: "",
       name: "Home",
@@ -50,28 +52,29 @@ function AppSidebar() {
       name: "Settings",
       link: "",
     },
-  ]
+  ], [])
+
   return (
-      <Box h="90.75vh" width="225px" bg="whiteAlpha.600">
-        <Flex direction="column" p="1em" gap="0.45em">
-        {sideBarList.map(each => <Link to={each.link}><Text _hover={{color:"blue.600"}}>{each.name}</Text></Link>)}
-        </Flex>
-        <Accordion allowMultiple allowToggle>
-          {sideBarContents.map(each => <AccordionItem>
-            <p>
-              <AccordionButton _expanded={{bg:"blackAlpha.100"}}>
-                <Text flex='1' textAlign='left' color="blue.900" fontSize="1.15em">
-                  {each.head}
-                </Text>
-                <AccordionIcon />
-              </AccordionButton>
-            </p>
-            <AccordionPanel pb={4} bg="whiteAlpha.600" paddingLeft="1.75em">
-              {each.child}
-            </AccordionPanel>
-          </AccordionItem>)}
-        </Accordion>
-      </Box>
+    <Box as="aside" width="20vw" maxW="225px" bg="whiteAlpha.600">
+      <Flex direction="column" p="1em" gap="0.45em">
+        {sideBarList.map(each => <Link to={each.link}><Text _hover={{ color: "blue.600" }}>{each.name}</Text></Link>)}
+      </Flex>
+      <Accordion allowMultiple allowToggle>
+        {sideBarContents.map(each => <AccordionItem>
+          <p>
+            <AccordionButton _expanded={{ bg: "blackAlpha.100" }}>
+              <Text flex='1' textAlign='left' color="blue.900" fontSize="1.15em">
+                {each.head}
+              </Text>
+              <AccordionIcon />
+            </AccordionButton>
+          </p>
+          <AccordionPanel pb={4} bg="whiteAlpha.600" paddingLeft="1.75em">
+            {each.child}
+          </AccordionPanel>
+        </AccordionItem>)}
+      </Accordion>
+    </Box>
   )
 }
 

@@ -9,7 +9,7 @@ type AppIconType = {
 }
 
 const AppIcon:FC<AppIconType> = forwardRef(({ iconName, customStyles } , ref) => {
-  return <Icon as={iconName}  {...customStyles} ref={ref} cursor="pointer" />
+  return <Icon as={iconName}  {...customStyles} ref={ref} cursor="pointer" _hover={{ }} />
 })
 
 export default AppIcon
