@@ -4,9 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query"
 import { CREATE_GOAL_API, DELETE_GOAL_API, GET_GOALS_API, UPDATE_GOAL_API } from '../api/url'
 import { makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } from '../api/utlis'
 import AppTable from '../components/AppTable'
-import AppNavbar from '../components/LayoutComponents/AppNavbar'
 import useHandleToast from '../hooks/useHandleToast'
-import AppSidebar from '../components/LayoutComponents/AppSidebar'
 
 
 function Crud() {
@@ -76,8 +74,6 @@ function Crud() {
   }
 
   return (
-    <AppNavbar>
-    <AppSidebar>
       <Box maxW={{ base: "90vw", md: "60vw" }} marginInline="auto">
         <Box p="1em" marginInline="auto" mt="3em">
           <Flex direction="column" gap="1em" >
@@ -101,8 +97,6 @@ function Crud() {
         </Box>
         {data?.length >= 1 && <AppTable tableData={data} handleEdit={handleEdit} handleDelete={handleDelete} />}
         </Box>
-        </AppSidebar>
-    </AppNavbar>
   )
 }
 

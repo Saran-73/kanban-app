@@ -11,7 +11,7 @@ import { APP_DASHBOARD, APP_BOARD_PAGE } from '../../navigation/routes';
 import { Link } from 'react-router-dom';
 
 //@ts-ignore
-function AppSidebar({ children }) {
+function AppSidebar() {
   const sideBarContents = [
     {
       head: "Favourites",
@@ -52,7 +52,6 @@ function AppSidebar({ children }) {
     },
   ]
   return (
-    <Flex w="100vw">
       <Box h="90.75vh" width="225px" bg="whiteAlpha.600">
         <Flex direction="column" p="1em" gap="0.45em">
         {sideBarList.map(each => <Link to={each.link}><Text _hover={{color:"blue.600"}}>{each.name}</Text></Link>)}
@@ -73,11 +72,6 @@ function AppSidebar({ children }) {
           </AccordionItem>)}
         </Accordion>
       </Box>
-      <Box flex="1">
-        {children}
-      </Box>
-    </Flex>
-
   )
 }
 

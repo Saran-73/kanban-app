@@ -1,6 +1,7 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import React, { useState } from 'react'
 import BoardsSection from '../components/BoardSection';
+import AppLayout from '../components/LayoutComponents/AppLayout';
 import AppNavbar from '../components/LayoutComponents/AppNavbar';
 import AppSidebar from '../components/LayoutComponents/AppSidebar';
 import { EachBoardType } from '../utils/types/types';
@@ -95,8 +96,7 @@ function BoardPage() {
   }
 
   return (
-    <AppNavbar>
-      <AppSidebar>
+   <AppLayout>
         {/* <button onClick={() => setNewState(pre => pre + 1)}>click</button> */}
         <Flex justifyContent="space-evenly" mt="2em" mb="1em">
           {boardData.map(eachBoardSection => {
@@ -111,8 +111,7 @@ function BoardPage() {
             />
           })}
         </Flex>
-      </AppSidebar>
-    </AppNavbar>
+    </AppLayout>
   )
 }
 
