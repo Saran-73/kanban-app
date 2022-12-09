@@ -1,32 +1,22 @@
 import { Box, Flex } from '@chakra-ui/react'
-import React from 'react'
+import React,{useState} from 'react'
 import AppNavbar from './AppNavbar'
 import AppSidebar from './AppSidebar'
-import { AnimatePresence, motion, useCycle } from "framer-motion"
 
 function AppLayout({ children }: any) {
-    const [open , cycleOpen] = useCycle(false, true);
+    const [toggleSidebar, setToggleSidebar] = useState(true)
+ 
+    const handleSidebarToggle = () => {
+        setToggleSidebar((prev : boolean) => !prev)
+    }
+
     return (
         <Box w="100vw" h="100vh">
-            <AppNavbar onHamburgerToggle={cycleOpen} />
-            <Flex h="100%">
-                <AnimatePresence>
-                {open && (
-                        <motion.aside
-                            initial={{ transform: "translateX(-225px)" }}
-                            animate={{ transform: "translateX(0px)" }}
-                            transition={{ duration: 0.75  }}
-                            exit={{
-                                transform: "translateX(-225px)",
-                                transition: {  duration: 0.75 }
-                              }}
-                    >
+            <AppNavbar onHamburgerToggle={handleSidebarToggle} />
+               <Flex h="100%" style={{ marginLeft: toggleSidebar ? "0px" : "-225px", transition: "margin-left 220ms linear" }}>
                         <Flex h="100%">
                             <AppSidebar />
                         </Flex>
-                    </motion.aside>
-                    )}
-                    </AnimatePresence>
                 <Box flexGrow="1">
                     {children}
                 </Box>
