@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Tooltip } from '@chakra-ui/react'
+import { Box, Flex, Text } from '@chakra-ui/react'
 import React, { memo } from 'react'
 import TaskCard from './TaskCard'
 import { BiPlus } from 'react-icons/bi';
@@ -32,10 +32,7 @@ function BoardsSection({ sectionId, heading, contents, handleDragEnter, handleDr
             <Flex alignItems="center" justifyContent="space-between" mb="1em" px="4px">
                 <Text as="h2" fontSize="sm" fontWeight="bold" >{heading}</Text>
                 <Flex gap="1em" alignItems="center">
-                    {/* --- TOOLTIP NOT WORKING AS THE REF NOT GETTING EXPOSED FROM THE ICON ----- */}
-                    <Tooltip hasArrow label='Add Task' bg='gray.300' color='black'>
-                        <AppIcon iconName={BiPlus} />
-                    </Tooltip>
+                    <AppIcon iconName={BiPlus} />
                 </Flex>
             </Flex>
             {contents.map(eachBoard => <TaskCard name={eachBoard.name} handleDragStart={handleDragStart} singleBoardContents={eachBoard} />)}
