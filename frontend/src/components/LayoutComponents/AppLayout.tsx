@@ -5,22 +5,20 @@ import AppSidebar from './AppSidebar'
 import { AnimatePresence, motion, useCycle } from "framer-motion"
 
 function AppLayout({ children }: any) {
-    const [open, cycleOpen] = useCycle(false, true);
+    const [open , cycleOpen] = useCycle(false, true);
     return (
         <Box w="100vw" h="100vh">
-
             <AppNavbar onHamburgerToggle={cycleOpen} />
             <Flex h="100%">
-                
                 <AnimatePresence>
                 {open && (
                         <motion.aside
-                       
-                        //    initial={{ width: 0 }}
-                        //     animate={{ width: 300 }}
+                            initial={{ transform: "translateX(-225px)" }}
+                            animate={{ transform: "translateX(0px)" }}
+                            transition={{ duration: 0.75  }}
                             exit={{
-                                // width: 0,
-                                transition: {  duration: 0.3 }
+                                transform: "translateX(-225px)",
+                                transition: {  duration: 0.75 }
                               }}
                     >
                         <Flex h="100%">
@@ -29,7 +27,6 @@ function AppLayout({ children }: any) {
                     </motion.aside>
                     )}
                     </AnimatePresence>
-
                 <Box flexGrow="1">
                     {children}
                 </Box>
