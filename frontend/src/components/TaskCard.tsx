@@ -1,6 +1,6 @@
 import { Box, Divider, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
-import { EachBoardType } from '../utils/types/types'
+import { EachCardType } from '../utils/types/types'
 import AppCard from './ChakraOverrides/AppCard'
 import AppAvatar from './CustomElements/AppAvatar'
 import AppIcon from './CustomElements/AppIcon'
@@ -8,7 +8,7 @@ import AppMenu from './AppMenu'
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
 
 
-function TaskCard({ name, handleDragStart, singleBoardContents }: { name: string, handleDragStart: any, singleBoardContents: EachBoardType }) {
+function TaskCard({ name, handleDragStart, singleBoardContents }: { name: string, handleDragStart: any, singleBoardContents: EachCardType }) {
     const [cardHovered, setCardHovered] = React.useState(false)
 
     const handleMouseEnter = () => setCardHovered(true)

@@ -1,4 +1,4 @@
-export interface EachBoardType{
+export interface EachCardType{
     id: string,
     name: string
 }

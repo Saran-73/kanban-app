@@ -4,7 +4,7 @@ import BoardsSection from '../components/BoardSection';
 import AppLayout from '../components/LayoutComponents/AppLayout';
 import AppNavbar from '../components/LayoutComponents/AppNavbar';
 import AppSidebar from '../components/LayoutComponents/AppSidebar';
-import { EachBoardType } from '../utils/types/types';
+import { EachCardType } from '../utils/types/types';
 
 function BoardPage() {
   const [boardData, setBoardData] = useState([
@@ -42,9 +42,10 @@ function BoardPage() {
       contents: []
     },
   ])
-  const [choosenBoard, setChoosenBoard] = useState({})
 
-  const handleDragStart = (singleBoardContents: React.SetStateAction<{}>) => {
+  const [choosenBoard, setChoosenBoard] = useState<EachCardType>({id: "", name: ""})
+
+  const handleDragStart = (singleBoardContents: EachCardType) => {
     setChoosenBoard(singleBoardContents)
   }
 
@@ -70,17 +71,16 @@ function BoardPage() {
     const targetId = event.target.getAttribute("data-section-Id")
 
     setBoardData( (prevBoardData : any) => {
-      return prevBoardData.map((eachBoardsSection: { contents: EachBoardType[]; }) => {
+      return prevBoardData.map((eachBoardsSection: { contents: EachCardType[]; }) => {
         // remove selected board form the previous section
-        // @ts-ignore
-        const removeSelectedBoard = targetId ? eachBoardsSection.contents.filter(eachBoard => choosenBoard.id !== eachBoard.id) : null
+           const removeSelectedBoard = targetId ? eachBoardsSection.contents.filter(eachBoard => choosenBoard.id !== eachBoard.id) : null
         
               return {
                 ...eachBoardsSection,
                 contents: removeSelectedBoard || eachBoardsSection.contents
               }
         
-          }).map((eachBoardsSection: { id: string; contents: EachBoardType[]; } ) => {
+          }).map((eachBoardsSection: { id: string; contents: EachCardType[]; } ) => {
         // add selected board to the particular section
             if (targetId === eachBoardsSection.id) {
               return {
@@ -97,8 +97,7 @@ function BoardPage() {
 
   return (
    <AppLayout>
-        {/* <button onClick={() => setNewState(pre => pre + 1)}>click</button> */}
-        <Flex justifyContent="space-evenly" mt="2em" mb="1em">
+        <Flex justifyContent="space-evenly" mt="2em" mb="1em" h="90%">
           {boardData.map(eachBoardSection => {
             return <BoardsSection
               sectionId={eachBoardSection.id}

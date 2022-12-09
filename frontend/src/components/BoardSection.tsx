@@ -3,13 +3,13 @@ import React, { memo } from 'react'
 import TaskCard from './TaskCard'
 import { BiPlus } from 'react-icons/bi';
 import AppIcon from './CustomElements/AppIcon';
-import { EachBoardType } from '../utils/types/types';
+import { EachCardType } from '../utils/types/types';
 
 
 interface BoardSectionType {
     sectionId: string,
     heading: string,
-    contents: EachBoardType[],
+    contents: EachCardType[],
     handleDragEnter: () => void,
     handleDrop: any,
     handleDragOver: any,
