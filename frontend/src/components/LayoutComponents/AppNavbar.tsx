@@ -29,7 +29,7 @@ function AppNavbar({onHamburgerToggle}) {
     return (
             <AppFlex as="nav" justifyContent="space-between" p="0.6em 1.5em" bg="brandPrimary.300">
               <AppFlex  color="whiteAlpha.900" >
-                <AppIcon iconName={FaBars} onClick={onHamburgerToggle} />
+                <AppIcon iconName={FaBars} onClick={onHamburgerToggle} toolTipLabel="Menu" />
                     <Text>KANBAN APP</Text>
                 </AppFlex>
                 <Box position="relative">
