@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Box, Flex, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, HStack, Text } from '@chakra-ui/react'
 import {
   Accordion,
   AccordionItem,
@@ -7,73 +7,77 @@ import {
   AccordionPanel,
   AccordionIcon,
 } from '@chakra-ui/react'
-import { APP_DASHBOARD, APP_BOARD_PAGE } from '../../navigation/routes';
+import { BsFillPlusCircleFill } from "react-icons/bs"
+import {BiBell, BiCheckCircle, BiHome } from "react-icons/bi"
 import { Link } from 'react-router-dom';
+import AppIcon from '../CustomElements/AppIcon';
+import { APP_DASHBOARD, APP_BOARD_PAGE } from '../../navigation/routes';
+
 
 //@ts-ignore
 function AppSidebar() {
 
+  const sideBarList = useMemo(() => [
+    {
+      name: "Home",
+      link: APP_DASHBOARD,
+      icon: BiHome,
+    },
+    {
+      name: "My Tasks",
+      link: APP_BOARD_PAGE,
+      icon: BiCheckCircle,
+    },
+    {
+      name: "Inbox",
+      link: "",
+      icon: BiBell,
+    },
+  ], [])
+
   const sideBarContents = useMemo(() => [
     {
-      head: "Favourites",
+      head: "Projects",
       child: "---",
       link: APP_DASHBOARD
     },
     {
-      head: "Saved searches",
+      head: "Team",
       child: "----",
       link: APP_BOARD_PAGE
     },
     {
-      head: "Teams",
+      head: "Insights",
       child: "----",
       link: APP_BOARD_PAGE
     }
   ], []);
 
-  const sideBarList = useMemo(() => [
-    {
-      icon: "",
-      name: "Home",
-      link: APP_DASHBOARD,
-    },
-    {
-      icon: "",
-      name: "Board",
-      link: APP_BOARD_PAGE,
-    },
-    {
-      icon: "",
-      name: "Portfolio",
-      link: "",
-    },
-    {
-      icon: "",
-      name: "Settings",
-      link: "",
-    },
-  ], [])
-
   return (
-    <Box as="aside" width="20vw" maxW="225px" bg="whiteAlpha.600">
-      <Flex direction="column" p="1em" gap="0.45em">
-        {sideBarList.map(each => <Link to={each.link}><Text _hover={{ color: "blue.600" }}>{each.name}</Text></Link>)}
+    <Box as="aside" width="20vw" maxW="225px" bg="brandDarkGray.400">
+
+      <Box px="1em" my="1em">
+      <Button bg="inherit" border="1px solid #363639" borderRadius="2em" fontSize="14px" gap="0.5em" _hover={{bg:"none"}}>
+      <AppIcon iconName={BsFillPlusCircleFill} customStyles={{ color: "brandRed.50", fontSize: "1.35em", bg: "white", borderRadius: "50%" }} />
+      <Text>Create</Text>
+      </Button>
+
+      <Flex direction="column" mb="1em" pt="0.5em">
+          {sideBarList.map(each =>
+            <Link to={each.link}>
+              <HStack pl="1em" py="0.35em" borderRadius="0.5em" fontSize="14px" _hover={{ bg: "brandDarkGray.50" }} bg="inherit">
+                <AppIcon iconName={each.icon} customStyles={{ color: 'brandDarkGray.200' , height:"20px" , width:"20px" }} />
+              <Text fontWeight="medium">{each.name}</Text>
+              </HStack>
+            </Link>
+          )}
       </Flex>
-      <Accordion allowMultiple allowToggle>
-        {sideBarContents.map(each => <AccordionItem>
-          <p>
-            <AccordionButton _expanded={{ bg: "blackAlpha.100" }}>
-              <Text flex='1' textAlign='left' color="blue.900" fontSize="1.15em">
-                {each.head}
-              </Text>
-              <AccordionIcon />
-            </AccordionButton>
-          </p>
-          <AccordionPanel pb={4} bg="whiteAlpha.600" paddingLeft="1.75em">
-            {each.child}
-          </AccordionPanel>
-        </AccordionItem>)}
-      </Accordion>
+      </Box>
+
+      <Box>
+
+
+      </Box>
     </Box>
   )
 }

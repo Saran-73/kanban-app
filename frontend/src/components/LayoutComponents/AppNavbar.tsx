@@ -2,7 +2,6 @@ import React from 'react'
 import { Box, Flex, HStack, Input, Text, VStack, } from '@chakra-ui/react'
 import { Link, useNavigate } from 'react-router-dom'
 import { BiCaretDown, BiSearch } from "react-icons/bi"
-import { BsFillPlusCircleFill } from "react-icons/bs"
 import { FaBars } from "react-icons/fa"
 import { APP_LOGIN_PAGE } from '../../navigation/routes'
 import { getApiToken, removeApiTokenls } from '../../utils/utlis'
@@ -33,10 +32,9 @@ function AppNavbar({onHamburgerToggle}) {
                 </HStack>
                 <Box position="relative">
                         <Input variant="searchInput" type="text" size="sm" placeholder="Search" w="30vw" />
-                        <AppIcon iconName={BiSearch} customStyles={{ color: "blue.700", pos: "absolute", top: "9px", left: "8px" }} />
+                        <AppIcon iconName={BiSearch} customStyles={{color:"brandDarkGray.200", pos: "absolute", top: "9px", left: "8px" }} />
                 </Box>
                 <HStack mr="1em">
-                    <AppIcon iconName={BsFillPlusCircleFill} customStyles={{ color: "orange", fontSize: "2xl", bg: "white", borderRadius: "50%" }} />
                     <AppMenu menuItems={[{ text: "Log out", onClickHandle: handleLogout }]}>
                         <Box position="relative">
                             <AppAvatar name={"naruto"} />

@@ -40,7 +40,8 @@ const customTheme = extendTheme({
   styles: {
     global: {
       body: {
-        backgroundColor: "#F4F3F3",
+        backgroundColor: "#1E1F21",
+        color: "#F5F4F3"
       },
     },
   },
@@ -57,6 +58,15 @@ const customTheme = extendTheme({
     },
     brandGreyishBlue: {
       900: "rgba(49,55,82,1)"
+    }
+    ,
+    brandDarkGray:{
+      50: "#FFFFFF1C",
+      200: "#a2a0a2",
+      400: "#252628",
+    },
+    brandRed: {
+      50: "#F06A6A",
     }
   },
   components: {
@@ -117,8 +127,7 @@ const customTheme = extendTheme({
         },
         searchInput: {
           field: {
-            bg: "whiteAlpha.800",
-            color: "black",
+            bg: "#424244",
             pl: "2em",
             borderRadius: "1em",
           }
