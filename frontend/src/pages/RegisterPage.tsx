@@ -15,7 +15,6 @@ type FormType = {
   name: string,
   email: string,
   password: string,
-  organisation: string,
 }
 
 function RegisterPage() {
@@ -37,10 +36,9 @@ function RegisterPage() {
   const { handleSubmit, register, watch } = useForm<FormType>();
 
   const onSubmit = (data: FormType) => {
-    mutate({ name: data.name, email: data.email, password: data.password, organisation: data.organisation })
+    mutate({ name: data.name, email: data.email, password: data.password })
   }
 
-  console.log(watch("organisation"))
   // const refInput = React.useRef()
 
   return (
@@ -62,11 +60,6 @@ function RegisterPage() {
               isRequired
               {...register("name", { required: true })}
             /> */}
-            <label>
-              Organisation Name:
-            </label>
-            <Input type="text" placeholder="organisation your are in" size="md" {...register("organisation", { required: true })} />
-
             {/* <AppInput
               //@ts-ignore
               // ref={refInput}

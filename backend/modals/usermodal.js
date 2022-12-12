@@ -6,10 +6,6 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, "Please provide name"],
     },
-    organisation: {
-      type: String, 
-      required: [true, "Please provide organisation name"]
-    },
     email: {
       type: String,
       required: [true, "Please provide email"],

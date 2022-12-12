@@ -2,8 +2,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const asynchandler = require("express-async-handler");
 const User = require("../modals/usermodal");
-// const registerOrganisation = require('./organisation_handler.js')
-const ORGANISATION_MODAL = require("../modals/organisation_modal.js");
 
 
 // @desc register the user
@@ -11,10 +9,10 @@ const ORGANISATION_MODAL = require("../modals/organisation_modal.js");
 // @access Public
 const registerUser = asynchandler(async (req, res) => {
   // get the user input from the body
-  const { name, email, password, organisation } = req.body;
+  const { name, email, password } = req.body;
 
   // if any one of them is not present mean throw err
-  if (!email || !name || !password || !organisation) {
+  if (!email || !name || !password ) {
     res.status(400);
     throw new Error("Please provide all fields");
   }
@@ -35,28 +33,16 @@ const registerUser = asynchandler(async (req, res) => {
   const createdUser = await User.create({
     name,
     email,
-    organisation,
     password: hashedPassword,
   });
 
-
-  const registerOrganisation = async () => {
-    const resultFromDb = await ORGANISATION_MODAL.create({
-      organisation : createdUser.organisation,
-    })
-    return resultFromDb;
-  }
-  
   if (createdUser) {
     
-  const oneOrganisation = await registerOrganisation()
-
   // send the success response with created user data
     res.status(201).json({
       _id: createdUser.id,
       name: createdUser.name,
       email: createdUser.email,
-      organisation: createdUser.organisation,
       token: generateJwt(createdUser.id),
     });
   } else {
