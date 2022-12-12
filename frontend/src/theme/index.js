@@ -1,74 +1,11 @@
-import { defineStyleConfig, extendTheme } from "@chakra-ui/react";
-
-const Card = defineStyleConfig({
-  // The styles all Cards have in common
-  baseStyle: {
-    // display: "flex",
-    // flexDirection: "column",
-    // alignItems: "center",
-    // gap: 2,
-    background: "white",
-    padding: "8px 16px",
-  },
-  variants: {
-    smooth: {
-      padding: 4,
-      borderRadius: "base",
-      boxShadow: "md",
-    },
-    taskCard: {
-      // w:"300px",
-      h: "auto",
-      minH: "85px",
-      maxH: "200px",
-      borderRadius: "0.5em",
-      bgColor: "whiteAlpha.900",
-      boxShadow:
-        "rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px",
-      marginBottom: "1.25em",
-      display: "grid",
-      overflow : "scroll"
-    },
-  },
-  // set the default variant for the card
-  defaultProps: {
-    variant: "smooth",
-  },
-});
+import { extendTheme } from "@chakra-ui/react";
+import { appColors } from "./foundations/appColor";
+import Card from "./components/CardStyles";
+import { globalStyles } from "./styles";
 
 const customTheme = extendTheme({
-  styles: {
-    global: {
-      body: {
-        backgroundColor: "#1E1F21",
-        color: "#F5F4F3"
-      },
-    },
-  },
-  colors: {
-    brandPrimary: {
-      300: "#363639"
-    },
-    brand: {
-      600: "#0099cc",
-      100: "#005573",
-    },
-    brandGrey: {
-      500: "rgba(73,93,109,1)"
-    },
-    brandGreyishBlue: {
-      900: "rgba(49,55,82,1)"
-    }
-    ,
-    brandDarkGray:{
-      50: "#FFFFFF1C",
-      200: "#a2a0a2",
-      400: "#252628",
-    },
-    brandRed: {
-      50: "#F06A6A",
-    }
-  },
+  styles: globalStyles,
+  colors: appColors,
   components: {
     AppFlex: {
       baseStyle: {
