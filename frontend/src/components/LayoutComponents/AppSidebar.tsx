@@ -1,17 +1,11 @@
 import React, { useMemo } from 'react'
 import { Box, Button, Flex, HStack, Text } from '@chakra-ui/react'
-import {
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-} from '@chakra-ui/react'
 import { BsFillPlusCircleFill } from "react-icons/bs"
 import {BiBell, BiCheckCircle, BiHome } from "react-icons/bi"
 import { Link } from 'react-router-dom';
 import AppIcon from '../CustomElements/AppIcon';
 import { APP_DASHBOARD, APP_BOARD_PAGE } from '../../navigation/routes';
+import Cc from '../cc'
 
 
 //@ts-ignore
@@ -37,17 +31,17 @@ function AppSidebar() {
 
   const sideBarContents = useMemo(() => [
     {
-      head: "Projects",
+      name: "Projects",
       child: "---",
       link: APP_DASHBOARD
     },
     {
-      head: "Team",
+      name: "Team",
       child: "----",
       link: APP_BOARD_PAGE
     },
     {
-      head: "Insights",
+      name: "Insights",
       child: "----",
       link: APP_BOARD_PAGE
     }
@@ -75,8 +69,7 @@ function AppSidebar() {
       </Box>
 
       <Box>
-
-
+        {sideBarContents.map(each => <Cc title={each.name} />)}
       </Box>
     </Box>
   )
