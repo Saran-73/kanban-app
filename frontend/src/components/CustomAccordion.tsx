@@ -4,7 +4,7 @@ import AppIcon from './CustomElements/AppIcon'
 import { BiCaretDown } from "react-icons/bi";
 
 
-function Cc({ children, title }: {children?: any , title: string}) {
+function CustomAccordion({ children, title }: {children?: any , title: string}) {
     const [isVisible, setIsVisible] = React.useState(false);
 
 
@@ -22,4 +22,4 @@ function Cc({ children, title }: {children?: any , title: string}) {
     )
 }
 
-export default Cc
+export default CustomAccordion

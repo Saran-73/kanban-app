@@ -5,7 +5,7 @@ import {BiBell, BiCheckCircle, BiHome } from "react-icons/bi"
 import { Link } from 'react-router-dom';
 import AppIcon from '../CustomElements/AppIcon';
 import { APP_DASHBOARD, APP_BOARD_PAGE } from '../../navigation/routes';
-import Cc from '../cc'
+import CustomAccordion from '../CustomAccordion'
 
 
 //@ts-ignore
@@ -69,7 +69,7 @@ function AppSidebar() {
       </Box>
 
       <Box>
-        {sideBarContents.map(each => <Cc title={each.name} />)}
+        {sideBarContents.map(each => <CustomAccordion title={each.name} />)}
       </Box>
     </Box>
   )

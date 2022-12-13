@@ -11,7 +11,7 @@ type AppIconType = {
 
 const AppIcon: FC<AppIconType> = ({ iconName, customStyles, onClick , toolTipLabel }) => {
   return (
-    <Tooltip hasArrow label={toolTipLabel} bg='gray.300' color='black' placement="bottom" isDisabled={toolTipLabel ? false : true} >
+    <Tooltip hasArrow label={toolTipLabel} bg='brandDarkGray.400' placement="bottom" isDisabled={toolTipLabel ? false : true} p="0.5em 0.75em" fontSize="13px">
       <VStack alignItems="center" onClick={onClick}>
         <Icon as={iconName}  {...customStyles} cursor="pointer" />
       </VStack>
