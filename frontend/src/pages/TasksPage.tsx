@@ -1,10 +1,23 @@
 import { Box, Button, Flex, HStack, Text } from '@chakra-ui/react';
 import React, { useState } from 'react'
 import AppTabs from '../components/AppTabs';
+import Board from '../components/Board';
 import AppIcon from '../components/CustomElements/AppIcon';
 import AppLayout from '../components/LayoutComponents/AppLayout';
 
-function BoardPage() {
+function TasksPage() {
+
+  const tabData = React.useMemo(() => [
+    {
+      name: "first",
+      component: () => <Board />,
+    },
+    {
+      name: "second",
+      component: () => <Board />,
+    },
+  ], []);
+
 
 
   return (
@@ -20,8 +33,8 @@ function BoardPage() {
             </Text>
             {/* <AppIcon iconName={} /> */}
           </Flex>
-          <AppTabs />
-          
+
+
         </Box>
         <HStack>
           <Button>
@@ -33,9 +46,11 @@ function BoardPage() {
             <Text>Customize</Text>
           </Button>
         </HStack>
-        </Flex>
+      </Flex>
+      
+      <AppTabs tabData={tabData} />
     </AppLayout>
   )
 }
 
-export default BoardPage;
+export default TasksPage;

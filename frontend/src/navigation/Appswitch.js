@@ -16,12 +16,12 @@ import RegisterPage from "../pages/RegisterPage";
 import Unauthorised from "../pages/Unauthorised";
 import {
   APP_DASHBOARD,
-  APP_BOARD_PAGE,
+  APP_TASKS_PAGE,
   APP_LOGIN_PAGE,
   APP_REGISTER_PAGE,
   APP_UNAUTHORISED_PAGE,
 } from "./routes";
-import BoardPage from "../pages/BoardsPage";
+import TasksPage from "../pages/TasksPage";
 import RequireAuth from "../components/RequireAuth";
 import useStore from "../store/store";
 
@@ -49,7 +49,6 @@ function Appswitch() {
         });
   }, []);
 
-
   //  --- remove the inital / from route name -----
   const makeRouteName = (routeName) => {
     const removedSlash = routeName.substring(1, routeName.length);
@@ -64,8 +63,8 @@ function Appswitch() {
           element={<DashboardPage />}
         />
         <Route
-          path={makeRouteName(APP_BOARD_PAGE)}
-          element={<BoardPage />}
+          path={makeRouteName(APP_TASKS_PAGE)}
+          element={<TasksPage />}
         />
       </>
     );

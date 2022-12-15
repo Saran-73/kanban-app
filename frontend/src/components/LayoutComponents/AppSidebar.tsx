@@ -4,7 +4,7 @@ import { BsFillPlusCircleFill } from "react-icons/bs"
 import {BiBell, BiCheckCircle, BiHome } from "react-icons/bi"
 import { Link } from 'react-router-dom';
 import AppIcon from '../CustomElements/AppIcon';
-import { APP_DASHBOARD, APP_BOARD_PAGE } from '../../navigation/routes';
+import { APP_DASHBOARD, APP_TASKS_PAGE } from '../../navigation/routes';
 import CustomAccordion from '../CustomAccordion'
 
 
@@ -19,7 +19,7 @@ function AppSidebar() {
     },
     {
       name: "My Tasks",
-      link: APP_BOARD_PAGE,
+      link: APP_TASKS_PAGE,
       icon: BiCheckCircle,
     },
     {
@@ -38,12 +38,12 @@ function AppSidebar() {
     {
       name: "Team",
       child: "----",
-      link: APP_BOARD_PAGE
+      link: APP_TASKS_PAGE
     },
     {
       name: "Insights",
       child: "----",
-      link: APP_BOARD_PAGE
+      link: APP_TASKS_PAGE
     }
   ], []);
 

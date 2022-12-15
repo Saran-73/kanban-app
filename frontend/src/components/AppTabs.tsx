@@ -1,33 +1,29 @@
 import React from 'react'
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Box } from '@chakra-ui/react'
 
-function AppTabs() {
-  const tabData = React.useMemo(() => [
-    // {
-    //  name : 
-    // }
-  ], [])
+type tabDataType = {
+  tabData: {
+    name: string;
+    component: () => JSX.Element;
+  }[];
+}
+
+const AppTabs = ( {tabData} : tabDataType ) => {
+
   return (
     <Tabs>
-  <TabList>
-    <Tab>One</Tab>
-    <Tab>Two</Tab>
-    <Tab>Three</Tab>
-  </TabList>
-
-  <TabPanels>
-    <TabPanel>
-      <p>one!</p>
-    </TabPanel>
-    <TabPanel>
-      <p>two!</p>
-    </TabPanel>
-    <TabPanel>
-      <p>three!</p>
-    </TabPanel>
-  </TabPanels>
-</Tabs>
+      <TabList>
+        {tabData.map((each: { name: string}) => <Tab>{each.name}</Tab>)}
+      </TabList>
+      <TabPanels>
+        {tabData.map((each: any) =>
+          <TabPanel>
+            <Box>{each.component()}</Box>
+          </TabPanel>
+        )}
+      </TabPanels>
+    </Tabs>
   )
 }
 
-export default AppTabs
+export default AppTabs;
