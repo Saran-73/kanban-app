@@ -95,7 +95,7 @@ function Board() {
   }
 
   return (
-    <Flex justifyContent="space-evenly" mt="2em" mb="1em" h="90%">
+    <Flex justifyContent="space-evenly" py="1em" h="90vh" bgColor="#252628">
     {boardData.map(eachBoardSection => {
       return <BoardsSection
         sectionId={eachBoardSection.id}

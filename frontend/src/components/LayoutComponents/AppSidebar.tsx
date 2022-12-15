@@ -48,7 +48,7 @@ function AppSidebar() {
   ], []);
 
   return (
-    <Box as="aside" width="20vw" maxW="225px" bg="brandDarkGray.400">
+    <Box as="aside" width="20vw" maxW="225px" bg="#2a2b2d">
 
       <Box px="1em" my="1em">
       <Button bg="inherit" border="1px solid #363639" borderRadius="2em" fontSize="14px" gap="0.5em" _hover={{bg:"none"}}>

@@ -22,12 +22,13 @@ const CardStyles = defineStyleConfig({
         minH: "85px",
         maxH: "200px",
         borderRadius: "0.5em",
-        bgColor: "whiteAlpha.900",
+        bgColor: "#2a2b2d",
         boxShadow:
           "rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px",
         marginBottom: "1.25em",
         display: "grid",
-        overflow : "scroll"
+        overflow: "scroll",
+        border:"1px solid #424244",
       },
     },
     // set the default variant for the card

@@ -23,7 +23,7 @@ function BoardsSection({ sectionId, heading, contents, handleDragEnter, handleDr
             w="20vw"
             p="0.5em"
             borderRadius="0.45em"
-            backgroundColor="#ECEDED"
+            backgroundColor=""
             onDragEnter={handleDragEnter}
             onDrop={handleDrop}
             onDragOver={handleDragOver}

@@ -6,13 +6,15 @@ import Board from '../components/Board';
 import AppAvatar from '../components/CustomElements/AppAvatar';
 import AppIcon from '../components/CustomElements/AppIcon';
 import AppLayout from '../components/LayoutComponents/AppLayout';
+import Onprogress from '../components/Onprogress';
+
 
 function TasksPage() {
 
   const tabData = React.useMemo(() => [
     {
       name: "List",
-      component: () => <Board />,
+      component: () => <Onprogress />,
     },
     {
       name: "Board",
@@ -20,21 +22,20 @@ function TasksPage() {
     },
     {
       name: "Calender",
-      component: () => <Board />,
+      component: () => <Onprogress />,
     },
     {
       name: "Files",
-      component: () => <Board />,
+      component: () => <Onprogress />,
     },
   ], []);
 
 
-
   return (
-   <AppLayout>
+    <AppLayout>
       <Flex gap="0.75em" px="1.5em" py="0.75em">
-        <HStack  flex="0 1 50px" minW="25px">
-          <AppAvatar name="B" size="md" />
+        <HStack flex="0 1 50px" minW="25px">
+          <AppAvatar name="B" size="md" customStyles={{ bg: "blue.500" }} />
         </HStack>
         <Box flex="0 2 75%">
           <HStack>
@@ -47,7 +48,7 @@ function TasksPage() {
               customStyles={{ fontSize: "1.5em", color: "#a2a0a2" }} />
           </HStack>
         </Box>
-        <HStack  flex="0 2 5%" ml="2.25em">
+        <HStack flex="0 2 5%" ml="2.25em">
           <Button variant="secondaryButton">
             {/* <AppIcon iconName={} /> */}
             <Text>Share</Text>
@@ -58,8 +59,10 @@ function TasksPage() {
           </Button>
         </HStack>
       </Flex>
-      
-      <AppTabs tabData={tabData} />
+
+      <Box pos="relative" bottom="1.5em">
+        <AppTabs tabData={tabData} />
+      </Box>
     </AppLayout>
   )
 }
