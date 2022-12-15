@@ -10,6 +10,15 @@ export const ButtonStyle = {
             color: "whiteAlpha.900",
             mt: "1em",
         },
+        secondaryButton: {
+            bg: "transparent",
+            border: "1px solid #565557",
+            color: "f5f4f3",
+            fontSize: "12px",
+            height: "28px",
+            padding: "0 8px",
+            borderRadius:"0.5em"
+        }
     },
     defaultProps: {
         variant: "formContainer",
