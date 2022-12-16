@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import AppIcon from '../CustomElements/AppIcon';
 import { APP_DASHBOARD, APP_TASKS_PAGE } from '../../navigation/routes';
 import CustomAccordion from '../CustomAccordion'
+import { appColors } from '../../theme/foundations/appColor';
 
 
 //@ts-ignore
@@ -48,10 +49,10 @@ function AppSidebar() {
   ], []);
 
   return (
-    <Box as="aside" width="20vw" maxW="225px" bg="#2a2b2d">
+    <Box as="aside" width="20vw" maxW="225px" bg={appColors.brandDarkGray["300"]}>
 
       <Box px="1em" my="1em">
-      <Button bg="inherit" border="1px solid #363639" borderRadius="2em" fontSize="14px" gap="0.5em" _hover={{bg:"none"}}>
+        <Button bg="inherit" border={`1px solid ${appColors.brandDarkGray["100"]}`} borderRadius="2em" fontSize="14px" gap="0.5em" _hover={{bg:"none"}}>
       <AppIcon iconName={BsFillPlusCircleFill} customStyles={{ color: "brandRed.50", fontSize: "1.35em", bg: "white", borderRadius: "50%" }} />
       <Text>Create</Text>
       </Button>

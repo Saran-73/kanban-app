@@ -15,10 +15,13 @@ export const appColors = {
     ,
     brandDarkGray: {
         50: "#FFFFFF1C",
+        100: "#424244",
         200: "#a2a0a2",
+        300: "#2a2b2d",
         400: "#252628",
     },
     brandRed: {
         50: "#F06A6A",
-    }
+    },
+
 };

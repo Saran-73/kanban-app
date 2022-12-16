@@ -1,6 +1,7 @@
 import { Flex } from '@chakra-ui/react'
 import React, {useState} from 'react'
 import BoardsSection from '../components/BoardSection';
+import { appColors } from '../theme/foundations/appColor';
 import { EachCardType } from '../utils/types/types';
 
 
@@ -95,7 +96,7 @@ function Board() {
   }
 
   return (
-    <Flex justifyContent="space-evenly" py="1em" h="90vh" bgColor="#252628">
+    <Flex justifyContent="space-evenly" py="1em" h="90vh" bgColor={appColors.brandDarkGray["400"]}>
     {boardData.map(eachBoardSection => {
       return <BoardsSection
         sectionId={eachBoardSection.id}

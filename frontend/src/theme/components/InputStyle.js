@@ -1,3 +1,6 @@
+import { appColors } from "../foundations/appColor";
+
+
 export const InputStyle = {
     baseStyle: {
         field: {
@@ -15,7 +18,7 @@ export const InputStyle = {
         },
         searchInput: {
             field: {
-                bg: "#424244",
+                bg: appColors.brandDarkGray["100"],
                 pl: "2em",
                 borderRadius: "1em",
             }

@@ -1,6 +1,7 @@
 import { tabsAnatomy } from "@chakra-ui/anatomy";
 import { createMultiStyleConfigHelpers } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools"; // import utility for setting light and dark mode props
+import { appColors } from "../foundations/appColor";
 
 const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(tabsAnatomy.keys);
@@ -26,7 +27,7 @@ const colorfulVariant = definePartsStyle((props) => {
     tab: {
       pos: "relative",
       left:"6em",
-      color: "#a2a0a2",
+      color: appColors.brandDarkGray["200"],
       fontWeight: "600",
       fontSize: "14px",
       p: "0 0 10px",
@@ -35,16 +36,16 @@ const colorfulVariant = definePartsStyle((props) => {
       _selected: {
         //   bg: mode('#fff', 'gray.800')(props),
         //   color: mode(`${c}.500`, `${c}.300`)(props),
-        borderBottom: "2px solid #a2a0a2",
+        borderBottom: `2px solid ${appColors.brandDarkGray["200"]}`,
         color: "#f5f4f3",
       },
       _hover: {
-        borderBottom: "2px solid #a2a0a2",
+        borderBottom: `2px solid ${appColors.brandDarkGray["200"]}`,
         color: "#f5f4f3",
       }
     },
     tablist: {
-        borderBottom:  "1px solid #424244"
+      borderBottom: `1px solid ${appColors.brandDarkGray["100"]}`
     },
     tabpanel: {
       p:"0",

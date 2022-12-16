@@ -11,7 +11,7 @@ type tabDataType = {
 const AppTabs = ( {tabData} : tabDataType ) => {
 
   return (
-    <Tabs>
+    <Tabs isLazy>
       <TabList>
         {tabData.map((each: { name: string}) => <Tab>{each.name}</Tab>)}
       </TabList>
