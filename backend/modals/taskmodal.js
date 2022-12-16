@@ -1,4 +1,10 @@
 const mongoose = require("mongoose");
+
+
+const task = mongoose.Schema({ title: String, description: String })
+const section = mongoose.Schema({ section_name: { type: String, }, all_tasks: [task] })
+
+
 const taskSchema = mongoose.Schema(
   {
     user: {
@@ -6,15 +12,13 @@ const taskSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
-    taskname: {
-      type: String,
-      required: [true, "please add taskname"],
-    },
+    all_sections: [section]
   },
   {
-    // will record created and updated at time
     timestamps: true,
   }
 );
+
+
 
 module.exports = mongoose.model("Task", taskSchema);

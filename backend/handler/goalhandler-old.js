@@ -91,9 +91,9 @@ const deleteTask = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = {
-  getTasks,
-  createTask,
-  updateTask,
-  deleteTask,
-};
+// module.exports = {
+//   getTasks,
+//   createTask,
+//   updateTask,
+//   deleteTask,
+// };
