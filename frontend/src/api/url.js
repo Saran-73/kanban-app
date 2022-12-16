@@ -11,22 +11,22 @@ export const REGISTE_USER_API = '/user'
 // GET
 export const IS_USER_AUTHENTICATED_API = `/user/getuser`
 
-// get goals
+// get tasks
 // need token authentication
 // GET
-export const GET_GOALS_API = '/goals'
+export const GET_GOALS_API = '/tasks'
 
-// create goals 
+// create tasks 
 // need token authentication
 // POST
-export const CREATE_GOAL_API = '/goals'
+export const CREATE_GOAL_API = '/tasks'
 
-// edit goal
+// edit task
 // need token authentication
 // PUT
-export const UPDATE_GOAL_API =(id) => `/goals/${id}`
+export const UPDATE_GOAL_API =(id) => `/tasks/${id}`
 
-// delete goal
+// delete task
 // need token authentication
 // DELETE
-export const DELETE_GOAL_API = (id) => `/goals/${id}`
+export const DELETE_GOAL_API = (id) => `/tasks/${id}`

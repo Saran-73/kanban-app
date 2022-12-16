@@ -21,7 +21,7 @@ function AppTable({ tableData, handleEdit, handleDelete }) {
 
   type TableDataType = {
     _id: string
-    goalname: string
+    taskname: string
     createdAt: string
   }
   const columnHelper = createColumnHelper<TableDataType>()
@@ -39,9 +39,9 @@ function AppTable({ tableData, handleEdit, handleDelete }) {
       header: "sn",
       cell: ({ cell: { row } }) => <p>{row.index}</p>
     }),
-    columnHelper.accessor("goalname", {
-      id: "goalname",
-      header: "goal"
+    columnHelper.accessor("taskname", {
+      id: "taskname",
+      header: "task"
     }),
     columnHelper.accessor('createdAt', {
       id: "created at",

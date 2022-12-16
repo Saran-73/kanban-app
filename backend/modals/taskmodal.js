@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
-const goalSchema = mongoose.Schema(
+const taskSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "User",
     },
-    goalname: {
+    taskname: {
       type: String,
-      required: [true, "please add goalname"],
+      required: [true, "please add taskname"],
     },
   },
   {
@@ -17,4 +17,4 @@ const goalSchema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Goal", goalSchema);
+module.exports = mongoose.model("Task", taskSchema);

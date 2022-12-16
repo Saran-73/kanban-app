@@ -8,7 +8,7 @@ import useHandleToast from '../hooks/useHandleToast'
 
 
 function Crud() {
-  const [newGoal, setNewGoal] = React.useState('');
+  const [newTask, setNewTask] = React.useState('');
   const queryClient = useQueryClient();
   const inputRef = React.useRef(null);
   const {handleToast} = useHandleToast()
@@ -18,12 +18,12 @@ function Crud() {
 
   const { mutate } = useMutation(
     CREATE_GOAL_API,
-    (formbody: { goalname: string }) => makePostRequest(CREATE_GOAL_API, formbody),
+    (formbody: { taskname: string }) => makePostRequest(CREATE_GOAL_API, formbody),
     {
       onSuccess() {
         queryClient.invalidateQueries({ queryKey: [GET_GOALS_API] })
-        setNewGoal("")
-        handleToast("New Goal Succesfully created", "success")
+        setNewTask("")
+        handleToast("New Task Succesfully created", "success")
       },
       onError: (err) =>{
         handleToast("Something went wrong", "error")
@@ -33,7 +33,7 @@ function Crud() {
   const { mutate: deleteMutation } = useMutation((id) => makeDeleteRequest(DELETE_GOAL_API(id)), {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [GET_GOALS_API] })
-      handleToast("Goal Deleted", "success")
+      handleToast("Task Deleted", "success")
     },
     onError: (err) => {
       handleToast("Something went wrong", "error")
@@ -44,7 +44,7 @@ function Crud() {
   const { mutate: editMutation } = useMutation(({ id, formBody }) => makePutRequest(UPDATE_GOAL_API(id), formBody), {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [GET_GOALS_API] })
-      handleToast("Goal Updated", "success")
+      handleToast("Task Updated", "success")
     },
     onError: (err) => {
       handleToast("Something went wrong", "error")
@@ -53,20 +53,20 @@ function Crud() {
   })
 
   const handleSubmit = () => {
-    if (newGoal.trim() === "") return;
-    mutate({ goalname: newGoal })
+    if (newTask.trim() === "") return;
+    mutate({ taskname: newTask })
   }
 
   const handleEdit = (rowContent: { _id: string }) => {
-    const updatedGoal = window.prompt("Enter the new Goal");
-    if (updatedGoal) {
+    const updatedTask = window.prompt("Enter the new Task");
+    if (updatedTask) {
       //@ts-ignore
-      editMutation({ id: rowContent._id, formBody: { goalname: updatedGoal } })
+      editMutation({ id: rowContent._id, formBody: { taskname: updatedTask } })
     }
   }
 
-  const handleDelete = (rowContent: { _id: string, goalname: string }) => {
-    const isConfirm = window.confirm(`Are you sure you want to delete ${rowContent.goalname}`)
+  const handleDelete = (rowContent: { _id: string, taskname: string }) => {
+    const isConfirm = window.confirm(`Are you sure you want to delete ${rowContent.taskname}`)
     if (isConfirm) {
       //@ts-ignore
       deleteMutation(rowContent._id)
@@ -77,17 +77,17 @@ function Crud() {
       <Box maxW={{ base: "90vw", md: "60vw" }} marginInline="auto">
         <Box p="1em" marginInline="auto" mt="3em">
           <Flex direction="column" gap="1em" >
-            <Text as="h3">Create a Goal</Text>
+            <Text as="h3">Create a Task</Text>
             <Input
               ref={inputRef}
               type="text"
-              name="goalname"
-              value={newGoal}
-              onChange={(e) => setNewGoal(e.target.value)}
-              placeholder="Your Goal"
+              name="taskname"
+              value={newTask}
+              onChange={(e) => setNewTask(e.target.value)}
+              placeholder="Your Task"
               size="md"
               onKeyDown={(e) => {
-                if (e.key === "Enter" && newGoal.trim() !== "") {
+                if (e.key === "Enter" && newTask.trim() !== "") {
                   handleSubmit()
                 }
               }}

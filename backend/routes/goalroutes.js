@@ -1,9 +1,9 @@
 const express = require("express");
-const { getGoals, createGoal, updateGoal, deleteGoal } = require("../handler/goalhandler");
+const { getTasks, createTask, updateTask, deleteTask } = require("../handler/taskhandler");
 const protect = require("../middleware/authmiddleware");
 const router = express.Router();
 
-router.route("/").get(protect, getGoals).post(protect, createGoal);
-router.route("/:id").put(protect, updateGoal).delete(protect, deleteGoal);
+router.route("/").get(protect, getTasks).post(protect, createTask);
+router.route("/:id").put(protect, updateTask).delete(protect, deleteTask);
 
 module.exports = router;

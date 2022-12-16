@@ -1,44 +1,44 @@
 const asyncHandler = require("express-async-handler");
 
-const Goal = require("../modals/goalmodal");
+const Task = require("../modals/taskmodal");
 const User = require("../modals/usermodal");
 
-// @desc get the goals
-// @route GET /api/goals
+// @desc get the tasks
+// @route GET /api/tasks
 // @access Private
-const getGoals = asyncHandler(async (req, res) => {
-  const GOAL = await Goal.find({ user: req.user.id });
+const getTasks = asyncHandler(async (req, res) => {
+  const GOAL = await Task.find({ user: req.user.id });
   res.status(200).json(GOAL);
 });
 
-// @desc create the goals
-// @route POST /api/goals
+// @desc create the tasks
+// @route POST /api/tasks
 // @access Private
-const createGoal = asyncHandler(async (req, res) => {
-  if (!req.body.goalname) {
+const createTask = asyncHandler(async (req, res) => {
+  if (!req.body.taskname) {
     res.status(400);
     // will cause the default err handling behaviour of express
-    throw new Error("Provide goal name");
+    throw new Error("Provide task name");
   }
   // create the data in database with the data recieved from body
-  const GOAL = await Goal.create({
-    goalname: req.body.goalname,
+  const GOAL = await Task.create({
+    taskname: req.body.taskname,
     user: req.user.id,
   });
   // send the response back
   res.status(200).json(GOAL);
 });
 
-// @desc update/edit the goals
-// @route PUT /api/goals
+// @desc update/edit the tasks
+// @route PUT /api/tasks
 // @access Private
-const updateGoal = asyncHandler(async (req, res) => {
+const updateTask = asyncHandler(async (req, res) => {
   // get the data form db based on id
-  const GOAL = await Goal.findById(req.params.id);
+  const GOAL = await Task.findById(req.params.id);
 
   if (!GOAL) {
     res.status(400);
-    throw new Error("Goal not found");
+    throw new Error("Task not found");
   }
 
   // check for user in db based on  id from the token
@@ -48,29 +48,29 @@ const updateGoal = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("user not found");
   }
-  //check the user logged in matches the goal of the user
+  //check the user logged in matches the task of the user
   if (GOAL.user.toString() !== user.id) {
     res.status(401);
     throw new Error("Not authorised");
   }
 
   // find data by id and update it with given body
-  const updateGoal = await Goal.findByIdAndUpdate(req.params.id, req.body, {
+  const updateTask = await Task.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
   // send response back
-  res.status(200).json(updateGoal);
+  res.status(200).json(updateTask);
 });
 
-// @desc delete the goals
-// @route DELETE /api/goals
+// @desc delete the tasks
+// @route DELETE /api/tasks
 // @access Private
-const deleteGoal = asyncHandler(async (req, res) => {
-  const goalById = await Goal.findById(req.params.id);
+const deleteTask = asyncHandler(async (req, res) => {
+  const taskById = await Task.findById(req.params.id);
 
-  if (!goalById) {
+  if (!taskById) {
     res.status(400);
-    throw new Error("Goal not found");
+    throw new Error("Task not found");
   }
   // check for user in db based on  id from the token
   const user = await User.findById(req.user.id);
@@ -79,21 +79,21 @@ const deleteGoal = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("user not found");
   }
-  //check the user logged in matches the goal of the user
-  if (goalById.user.toString() !== user.id) {
+  //check the user logged in matches the task of the user
+  if (taskById.user.toString() !== user.id) {
     res.status(401);
     throw new Error("Not authorised");
   }
 
-  if (goalById.user.toString() === user.id) {
-    await Goal.findByIdAndDelete(req.params.id);
+  if (taskById.user.toString() === user.id) {
+    await Task.findByIdAndDelete(req.params.id);
     res.status(200).json({ id: req.params.id });
   }
 });
 
 module.exports = {
-  getGoals,
-  createGoal,
-  updateGoal,
-  deleteGoal,
+  getTasks,
+  createTask,
+  updateTask,
+  deleteTask,
 };

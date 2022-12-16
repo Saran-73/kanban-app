@@ -12,7 +12,7 @@ connectDB();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/api/goals", require("./routes/goalroutes"));
+app.use("/api/tasks", require("./routes/taskroutes"));
 app.use("/api/user", require("./routes/userroutes"));
 // app.use("/api/organisation", require("./routes/organisation_routes.js"))
 
