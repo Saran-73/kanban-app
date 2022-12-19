@@ -1,9 +1,21 @@
 const mongoose = require("mongoose");
 
 
-const task = mongoose.Schema({ title: String, description: String })
-const section = mongoose.Schema({ section_name: { type: String, }, all_tasks: [task] })
+const task = mongoose.Schema({
+  title: String,
+  description: String
+})
 
+const section = mongoose.Schema({
+  section_name: {
+    type: String,
+    // default: "i M DEFAYLT"
+  },
+  all_tasks: {
+    type: [task],
+    default: () => []
+  }
+})
 
 const taskSchema = mongoose.Schema(
   {
@@ -12,7 +24,10 @@ const taskSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
-    all_sections: [section]
+    all_sections: {
+      type: [section],
+      default: () => []
+    }
   },
   {
     timestamps: true,
