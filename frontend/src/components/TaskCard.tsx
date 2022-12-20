@@ -8,7 +8,7 @@ import AppMenu from './AppMenu'
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
 
 
-function TaskCard({ name, handleDragStart, singleBoardContents }: { name: string, handleDragStart: any, singleBoardContents: EachCardType }) {
+function TaskCard({ title, handleDragStart, singleBoardContents }: { title: string, handleDragStart: any, singleBoardContents: EachCardType }) {
     const [cardHovered, setCardHovered] = React.useState(false)
 
     const handleMouseEnter = () => setCardHovered(true)
@@ -34,10 +34,10 @@ function TaskCard({ name, handleDragStart, singleBoardContents }: { name: string
                   )}
             </Flex>
 
-            <Flex alignItems="center" gap="0.45em">
-                <AppAvatar name={name} />
+            {/* <Flex alignItems="center" gap="0.45em">
+                <AppAvatar name={title} />
                 <Text fontSize="xs" color="gray.500">19, Jan 2021</Text>
-            </Flex>
+            </Flex> */}
 
         </AppCard>
     )

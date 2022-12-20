@@ -14,19 +14,24 @@ export const IS_USER_AUTHENTICATED_API = `/user/getuser`
 // get tasks
 // need token authentication
 // GET
-export const GET_GOALS_API = '/tasks'
+export const GET_TASKS_API =(id) => `/tasks/${id}`;
 
-// create tasks 
-// need token authentication
-// POST
-export const CREATE_GOAL_API = '/tasks'
+// // edit tasks
+// // need token authentication
+// // PUT
+export const MAKE_UPDATE_TASKS_API = (taskId)=> `/tasks/${taskId}`
 
-// edit task
-// need token authentication
-// PUT
-export const UPDATE_GOAL_API =(id) => `/tasks/${id}`
+// // create tasks 
+// // need token authentication
+// // POST
+// export const CREATE_GOAL_API = '/tasks'
 
-// delete task
-// need token authentication
-// DELETE
-export const DELETE_GOAL_API = (id) => `/tasks/${id}`
+// // edit task
+// // need token authentication
+// // PUT
+// export const UPDATE_GOAL_API =(id) => `/tasks/${id}`
+
+// // delete task
+// // need token authentication
+// // DELETE
+// export const DELETE_GOAL_API = (id) => `/tasks/${id}`

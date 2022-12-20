@@ -35,7 +35,7 @@ function BoardsSection({ sectionId, heading, contents, handleDragEnter, handleDr
                     <AppIcon iconName={BiPlus} />
                 </Flex>
             </Flex>
-            {contents.map(eachBoard => <TaskCard name={eachBoard.name} handleDragStart={handleDragStart} singleBoardContents={eachBoard} />)}
+            {contents.map(eachBoard => <TaskCard title={eachBoard.title} handleDragStart={handleDragStart} singleBoardContents={eachBoard} />)}
         </Box>
     )
 }

@@ -1,4 +1,5 @@
 export interface EachCardType{
     id: string,
-    name: string
+    title: string
+    description: string
 }

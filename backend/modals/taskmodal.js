@@ -2,18 +2,24 @@ const mongoose = require("mongoose");
 
 
 const task = mongoose.Schema({
-  title: String,
-  description: String
+  title: {
+    type: String,
+    default: "",
+  },
+  description: {
+    type: String,
+    default: "",
+  },
 })
 
 const section = mongoose.Schema({
   section_name: {
     type: String,
-    // default: "i M DEFAYLT"
+    default: ""
   },
   all_tasks: {
     type: [task],
-    default: () => []
+    default: () => [{ title: "", description: ""}]
   }
 })
 
@@ -26,7 +32,7 @@ const taskSchema = mongoose.Schema(
     },
     all_sections: {
       type: [section],
-      default: () => []
+      default: () => [{ section_name: "", all_tasks: []}]
     }
   },
   {
