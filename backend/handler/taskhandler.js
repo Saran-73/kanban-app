@@ -20,14 +20,28 @@ const createTask = asyncHandler(async (req, res) => {
     throw new Error("Please provide title")
   }
 
-  const TASKS = await TASKMODAL.create({
+  const createdSection = await SECTIONMODAL.create({
+    section_name: req.body.section_name
+  })
+
+  const tasks = await TASKMODAL.create({
     user: req.user.id,
     title: req.body.title,
     description: req.body.description,
-    section: ""
+    section: createdSection.id,
   });
 
-  res.status(200).json(TASKS);
+  const d = await TASKMODAL.findOne({ title: tasks.title }).populate({
+    path: 'section',
+    select: 'section_name',
+  }).exec(function (err, story) {
+    if (err) {
+      console.log(err)
+      throw new Error("err occured")
+    }
+
+    res.status(200).json(story);
+  });
 });
 
 module.exports = { getTasks ,createTask}

@@ -15,7 +15,10 @@ const taskSchema = mongoose.Schema(
       type: String,
       default: ""
     },
-    section: String,
+    section: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Section"
+    },
   },
   {
     timestamps: true,
