@@ -11,15 +11,17 @@ export const REGISTE_USER_API = '/user'
 // GET
 export const IS_USER_AUTHENTICATED_API = `/user/getuser`
 
-// get tasks
+// get all tasks
 // need token authentication
 // GET
-export const GET_TASKS_API =(id) => `/tasks/${id}`;
+export const GET_TASKS_API  = "/tasks";
 
-// // edit tasks
-// // need token authentication
-// // PUT
-export const MAKE_UPDATE_TASKS_API = (taskId)=> `/tasks/${taskId}`
+// create new section
+//  need token authentication
+//  POST
+export const CREATE_NEW_SECTION = "/tasks/create-section"
+
+export const GET_TASKS_FOR_SINGLE_SECTION = (id) => `tasks/get-sections-tasks/${id}`;
 
 // // create tasks 
 // // need token authentication

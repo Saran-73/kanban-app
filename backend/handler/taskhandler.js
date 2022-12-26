@@ -31,17 +31,43 @@ const createTask = asyncHandler(async (req, res) => {
     section: createdSection.id,
   });
 
-  const d = await TASKMODAL.findOne({ title: tasks.title }).populate({
-    path: 'section',
-    select: 'section_name',
-  }).exec(function (err, story) {
-    if (err) {
-      console.log(err)
-      throw new Error("err occured")
-    }
+  // ---- important concept but not needed here ---
+  // const populatedDataByReferringModals = await TASKMODAL.findOne({ title: tasks.title }).populate({
+  //   path: 'section',
+  //   select: 'section_name',
+  // }).exec(function (err, story) {
+  //   if (err) {
+  //     console.log(err)
+  //     throw new Error("err occured")
+  //   }
+  //   res.status(200).json(populatedDataByReferringModals);
+  // });
+s
+    res.status(200).json(tasks);
 
-    res.status(200).json(story);
-  });
 });
 
-module.exports = { getTasks ,createTask}
+
+
+const createSection = asyncHandler(async (req, res) => {
+
+  const createdSection = await SECTIONMODAL.create({
+    section_name: req.body.section_name
+  })
+
+  res.status(200).json({
+    section_created_status: "success",
+    section_id: createdSection.id
+  })
+  
+})
+
+
+const getTasksForOneSection = asyncHandler(async (req, res) => {
+
+  const tasksOfSingleSection = await TASKMODAL.find({ section: req.params.id });
+
+  res.status(200).json(tasksOfSingleSection)
+})
+
+module.exports = { getTasks ,createTask, createSection, getTasksForOneSection}
