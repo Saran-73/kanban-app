@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { useMutation, useQuery } from 'react-query';
-import { GET_TASKS_API, CREATE_NEW_SECTION, GET_TASKS_FOR_SINGLE_SECTION } from '../api/url';
+import { useMutation, useQuery, useQueryClient, } from 'react-query';
+import { GET_TASKS_API, CREATE_NEW_SECTION, GET_TASKS_FOR_SINGLE_SECTION, CREAT_NEW_TASK } from '../api/url';
 import { makeGetRequest, makePostRequest } from '../api/utlis';
 import BoardsSection from '../components/BoardSection';
 import useHandleToast from '../hooks/useHandleToast';
@@ -11,40 +11,57 @@ import { EachCardType } from '../utils/types/types';
 
 function Board() {
 
-  const [boardData, setBoardData] = useState([])
+  // const [boardData, setBoardData] = useState([])
 
   const [choosenBoard, setChoosenBoard] = useState<EachCardType>({ id: "", title: "", description: "" });
   const { handleToast } = useHandleToast();
+  const queryClient = useQueryClient();
 
+  // --- get all tasks --
   const { data } = useQuery(GET_TASKS_API, () => makeGetRequest(GET_TASKS_API));
 
-  console.log("all tasks", data);
-
-  const { data: sectionsAllTasksData } = useQuery(
-    "GET_TASKS_FOR_SINGLE_SECTION",
-    () => makeGetRequest(GET_TASKS_FOR_SINGLE_SECTION("63a2296cb52a5d6638d61c06")));
-
-console.log("sections tasks", sectionsAllTasksData)
-
-  const { mutate: createSectionMutation } = useMutation(
-    (formBody) => makePostRequest(CREATE_NEW_SECTION, formBody),
+  // --- create new task
+  const { mutate: createTaskMutation } = useMutation(
+    (formBody) => makePostRequest(CREAT_NEW_TASK("63a2296cb52a5d6638d61c06"), formBody),
     {
     onSuccess: (data: any) => {
       console.log(data)
-      setBoardData(data)
+      queryClient.invalidateQueries(GET_TASKS_API)
       handleToast("success", "success")
     },
     onError: (err: any) => {
       handleToast("Something went wrong", "error")
       console.log(err)
+      // throw new Error("Somethings wrong in creating new section");
     }
   })
 
-  // console.log(boardData)
 
-  // React.useEffect(() => {
-  //   // setBoardData(data)
-  // }, [])
+
+  // --- get single sections all tasks
+//   const { data: sectionsAllTasksData } = useQuery(
+//     "GET_TASKS_FOR_SINGLE_SECTION",
+//     () => makeGetRequest(GET_TASKS_FOR_SINGLE_SECTION("63a2296cb52a5d6638d61c06")));
+
+// console.log("sections tasks", sectionsAllTasksData)
+
+  
+  // --- create new section
+  // const { mutate: createSectionMutation } = useMutation(
+  //   (formBody) => makePostRequest(CREATE_NEW_SECTION, formBody),
+  //   {
+  //   onSuccess: (data: any) => {
+  //     console.log(data)
+  //     // queryClient.invalidateQueries(GET_TASKS_API)
+  //     handleToast("success", "success")
+  //   },
+  //   onError: (err: any) => {
+  //     handleToast("Something went wrong", "error")
+  //     console.log(err)
+  //     // throw new Error("Somethings wrong in creating new section");
+  //   }
+  // })
+
 
 
   const handleDragStart = (singleBoardContents: EachCardType) => {
@@ -109,14 +126,32 @@ console.log("sections tasks", sectionsAllTasksData)
     // //@ts-ignore
     // editMutation(formBody)
   }
-  const handleCreateSection = () => {
-    const formBody = {
-      section_name: "new section"
-    }
+  const handleCreateTask = (formBody: { title: string; }) => {
+    // const formBody = {
+    //   section_name: "new section"
+    // }
+    if (formBody.title !== "") {
     //@ts-ignore
-    createSectionMutation(formBody)
+    createTaskMutation(formBody)
+    }
 
   }
+
+
+  const boardData = [
+    {
+      id: "1",
+      section_name: "first section",
+    },
+    {
+      id: "2",
+      section_name: "first section",
+    },
+    {
+      id: "3",
+      section_name: "first section",
+    },
+  ]
 
   return (
     <Flex justifyContent="space-evenly" py="1em" h="90vh" bgColor={appColors.brandDarkGray["400"]}>
@@ -127,14 +162,16 @@ console.log("sections tasks", sectionsAllTasksData)
           // @ts-ignore
           heading={eachBoardSection.section_name}
           // @ts-ignore
-          contents={eachBoardSection.all_tasks}
+          contents={data}
+
           handleDragEnter={handleDragEnter}
           handleDrop={handleDrop}
           handleDragOver={handleDragOver}
           handleDragStart={handleDragStart}
+          handleCreateTask={handleCreateTask}
         />
       })}
-      <button onClick={handleCreateSection}>CREATE SECTION</button>
+      {/* <button onClick={handleCreateSection}>CREATE SECTION</button> */}
     </Flex>
   )
 }

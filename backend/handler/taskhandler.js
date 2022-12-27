@@ -70,4 +70,19 @@ const getTasksForOneSection = asyncHandler(async (req, res) => {
   res.status(200).json(tasksOfSingleSection)
 })
 
-module.exports = { getTasks ,createTask, createSection, getTasksForOneSection}
+const createNewTask = asyncHandler(async (req, res) => {
+  if (!req.body.title) {
+    throw new Error("Please provide title")
+  }
+
+  const tasks = await TASKMODAL.create({
+    user: req.user.id,
+    title: req.body.title,
+    description: req.body.description,
+    section: req.params.id,
+  });
+
+  res.status(200).json({status: "success - new task created", new_task_title: tasks.title})
+})
+
+module.exports = { getTasks ,createTask, createSection, getTasksForOneSection, createNewTask}

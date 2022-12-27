@@ -26,7 +26,7 @@ function TaskCard({ title, handleDragStart, singleBoardContents }: { title: stri
             onMouseLeave={handleMouseLeave}
         >
             <Flex justifyContent="space-between">
-                <Text>Work life balance</Text>
+                <Text>{title}</Text>
                 {cardHovered && (
                     <AppMenu menuItems={[{ text: "Edit task" }, { text: "Delete task", color: "red" }]}>
                         <AppIcon iconName={BiDotsHorizontalRounded} />
@@ -34,10 +34,10 @@ function TaskCard({ title, handleDragStart, singleBoardContents }: { title: stri
                   )}
             </Flex>
 
-            {/* <Flex alignItems="center" gap="0.45em">
-                <AppAvatar name={title} />
-                <Text fontSize="xs" color="gray.500">19, Jan 2021</Text>
-            </Flex> */}
+            <Flex alignItems="center" gap="0.45em">
+                {/* <AppAvatar name={title} /> */}
+                <Text fontSize="xs" color="gray.500">{singleBoardContents.description}</Text>
+            </Flex>
 
         </AppCard>
     )

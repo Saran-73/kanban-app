@@ -19,9 +19,17 @@ export const GET_TASKS_API  = "/tasks";
 // create new section
 //  need token authentication
 //  POST
-export const CREATE_NEW_SECTION = "/tasks/create-section"
+export const CREATE_NEW_SECTION = "/tasks/create-section";
 
+// get all tasks from single section - id is section id
+//  need token authentication
+//  POST
 export const GET_TASKS_FOR_SINGLE_SECTION = (id) => `tasks/get-sections-tasks/${id}`;
+
+// create new task in paritcular section - id is section id
+// need token authentication
+//  POST
+export const CREAT_NEW_TASK = (id) => `tasks/create-task/${id}`;
 
 // // create tasks 
 // // need token authentication
