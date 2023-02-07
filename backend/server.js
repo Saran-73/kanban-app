@@ -8,15 +8,15 @@ const app = express();
 
 // establist connection to database
 connectDB();
- 
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/api/tasks", require("./routes/taskroutes"));
 app.use("/api/user", require("./routes/userroutes"));
-
+app.use("/api/section", require("./routes/sectionroutes"));
+// app.use("/api/section/tasks", require("./routes/taskroutes"));
 
 // override the default Express error handler
-app.use(errorHandler)
+app.use(errorHandler);
 
 app.listen(port, () => console.log(`Server is running on ${port}`));

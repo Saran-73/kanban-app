@@ -7,14 +7,14 @@ import { EachCardType } from '../utils/types/types';
 import AppCard from './ChakraOverrides/AppCard';
 
 interface BoardSectionType {
-    sectionId: string,
+    sectionId?: string,
     heading: string,
-    contents: EachCardType[],
-    handleDragEnter: () => void,
-    handleDrop: any,
-    handleDragOver: any,
-    handleDragStart: any,
-    handleCreateTask: (formBody: {title: string;}) => void,
+    contents?: EachCardType[],
+    handleDragEnter?: () => void,
+    handleDrop?: any,
+    handleDragOver?: any,
+    handleDragStart?: any,
+    handleCreateTask?: (formBody: { title: string; }) => void,
 }
 
 function BoardsSection({ sectionId, heading, contents, handleDragEnter, handleDrop, handleDragOver, handleDragStart, handleCreateTask }: BoardSectionType) {
@@ -29,22 +29,22 @@ function BoardsSection({ sectionId, heading, contents, handleDragEnter, handleDr
 
     const handleKeyPress = (e: { key: any; }) => {
         if (e.key === "Enter" && task.title !== "") {
-            handleCreateTask(task)   
+            // handleCreateTask(task)
             setCreateNew(false)
-            setTask({title: ''})
+            setTask({ title: '' })
         }
     }
 
     return (
         <Box
             w="20vw"
-            p="0.5em"
+            p="1em 2em"
             borderRadius="0.45em"
-            backgroundColor=""
             onDragEnter={handleDragEnter}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             data-section-Id={sectionId}
+            bgColor={'rgba(40, 40, 43, 0.8)'}
         >
             <Flex alignItems="center" justifyContent="space-between" mb="1em" px="4px">
                 <Text as="h2" fontSize="sm" fontWeight="bold" textTransform="uppercase" >
