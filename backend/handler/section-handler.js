@@ -37,14 +37,11 @@ const updateSectionData = asyncHandler(async (req, res) => {
   const destinationSectionId = req.body.destinationid;
 
   // get the source section and remove the id
-  const sourceSection = await SECTIONMODAL.updateOne(
-    { id: sourceSectionId },
-    {
-      $pull: {
-        tasks: taskId,
-      },
-    }
-  );
+  const sourceSection = await SECTIONMODAL.findByIdAndUpdate(sourceSectionId, {
+    $pull: {
+      tasks: taskId,
+    },
+  });
 
   // get that task and change its section id ref
   const task = await TASKMODAL.findByIdAndUpdate(taskId, {
