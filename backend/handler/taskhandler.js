@@ -30,7 +30,7 @@ const createNewTask = asyncHandler(async (req, res) => {
   const updateSection = await SECTIONMODAL.findByIdAndUpdate(
     req.params.sectionid,
     { $push: { tasks: taskId } },
-    { upsert: false, new: true }
+    { upsert: true, new: true }
   );
 
   res.status(200).json({
