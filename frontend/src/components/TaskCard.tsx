@@ -8,7 +8,7 @@ import AppMenu from './AppMenu'
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
 
 
-function TaskCard({ title, handleDragStart, singleBoardContents }: { title: string, handleDragStart: any, singleBoardContents: EachCardType }) {
+function TaskCard({ title, handleDragStart, singleBoardContents }: { title: string, handleDragStart?: any, singleBoardContents: EachCardType }) {
     const [cardHovered, setCardHovered] = React.useState(false)
 
     const handleMouseEnter = () => setCardHovered(true)
@@ -31,7 +31,7 @@ function TaskCard({ title, handleDragStart, singleBoardContents }: { title: stri
                     <AppMenu menuItems={[{ text: "Edit task" }, { text: "Delete task", color: "red" }]}>
                         <AppIcon iconName={BiDotsHorizontalRounded} />
                     </AppMenu>
-                  )}
+                )}
             </Flex>
 
             <Flex alignItems="center" gap="0.45em">

@@ -98,7 +98,11 @@ function Board() {
         ?
         <div>Loading</div>
         :
-        data.map((eachSection: any) => <BoardsSection heading={eachSection.section_name} />)
+        data?.map((eachSection: { section_name: string; tasks: EachCardType[] | undefined; }) => <BoardsSection
+          heading={eachSection.section_name}
+          contents={eachSection.tasks}
+        />
+        )
       }
 
       <Box
