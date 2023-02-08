@@ -8,7 +8,7 @@ import AppMenu from './AppMenu'
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
 
 
-function TaskCard({ title, handleDragStart, singleBoardContents }: { title: string, handleDragStart?: any, singleBoardContents: EachCardType }) {
+function TaskCard({ title, handleDragStart, singleBoardContents, sectionid, id }: { id: string, sectionid?: string, title: string, handleDragStart?: any, singleBoardContents: EachCardType }) {
     const [cardHovered, setCardHovered] = React.useState(false)
 
     const handleMouseEnter = () => setCardHovered(true)
@@ -20,7 +20,7 @@ function TaskCard({ title, handleDragStart, singleBoardContents }: { title: stri
             draggable
             onDragStart={() => {
                 setCardHovered(false)
-                handleDragStart(singleBoardContents)
+                handleDragStart(id, sectionid)
             }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}

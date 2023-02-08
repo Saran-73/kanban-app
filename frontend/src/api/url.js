@@ -26,6 +26,11 @@ export const GET_ALL_SECTIONS_API = "/section/";
 //  POST
 export const CREATE_NEW_SECTION = "/section/create-new";
 
+// create new section
+//  need token authentication
+//  PATCH
+export const UPDATE_SECTION_DATA = "/section/update";
+
 // get all tasks from single section - id is section id
 //  need token authentication
 //  POST

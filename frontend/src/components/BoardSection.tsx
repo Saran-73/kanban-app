@@ -55,7 +55,7 @@ function BoardsSection({ heading, contents, id, createTaskMutation, handleDragEn
             p="1em 2em"
             borderRadius="0.45em"
             onDragEnter={handleDragEnter}
-            onDrop={handleDrop}
+            onDrop={() => handleDrop(id)}
             onDragOver={handleDragOver}
             bgColor={'rgba(40, 40, 43, 0.8)'}
         >
@@ -69,9 +69,13 @@ function BoardsSection({ heading, contents, id, createTaskMutation, handleDragEn
             </Flex>
             {contents?.map(eachBoard =>
                 <TaskCard
+                    key={eachBoard._id}
+                    id={eachBoard._id}
                     title={eachBoard.title}
                     handleDragStart={handleDragStart}
-                    singleBoardContents={eachBoard} />
+                    singleBoardContents={eachBoard}
+                    sectionid={id}
+                />
             )}
             {createNew &&
                 <AppCard variant="taskCard">

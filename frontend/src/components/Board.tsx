@@ -1,8 +1,8 @@
 import { Box, Button, Flex, Input } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useMutation, useQuery, useQueryClient, } from 'react-query';
-import { GET_TASKS_API, CREATE_NEW_SECTION, GET_TASKS_FOR_SINGLE_SECTION, CREAT_NEW_TASK, GET_ALL_SECTIONS_API } from '../api/url';
-import { makeGetRequest, makePostRequest } from '../api/utlis';
+import { GET_TASKS_API, CREATE_NEW_SECTION, GET_TASKS_FOR_SINGLE_SECTION, CREAT_NEW_TASK, GET_ALL_SECTIONS_API, UPDATE_SECTION_DATA } from '../api/url';
+import { makeGetRequest, makePatchRequest, makePostRequest } from '../api/utlis';
 import BoardsSection from '../components/BoardSection';
 import useHandleToast from '../hooks/useHandleToast';
 import { appColors } from '../theme/foundations/appColor';
@@ -17,6 +17,7 @@ function Board() {
   const queryClient = useQueryClient();
 
   const [sectionName, setSectionName] = useState('');
+  const [choosenBoard, setChoosenBoard] = useState({ taskid: "", sourceid: "" });
   const [createNew, setCreateNew] = useState(false);
 
   // --- get all Section --
@@ -52,20 +53,41 @@ function Board() {
       }
     })
 
+  //  --- update section data on drag and drop           
+  const { mutate: updateSectionMutation } = useMutation(
+    (formBody) => makePatchRequest(UPDATE_SECTION_DATA, {
+      //@ts-ignore
+      sourceid: formBody.sourceid,
+      //@ts-ignore
+      destinationid: formBody.destinationid,
+      //@ts-ignore
+      taskid: formBody.taskid
+    }
+    ),
+    {
+      onSuccess: (data: any) => {
+        queryClient.invalidateQueries(GET_ALL_SECTIONS_API)
+        handleToast("success", "success")
+      },
+      onError: (err: any) => {
+        handleToast("Something went wrong", "error")
+      }
+    })
 
 
-  // const handleDragStart = (singleBoardContents: EachCardType) => {
-  //   // setChoosenBoard(singleBoardContents)
-  // }
-
+  const handleDragStart = (taskid: string, sourceid: string) => {
+    setChoosenBoard({ taskid: taskid, sourceid: sourceid })
+  }
+  console.log(choosenBoard)
   // const handleDragEnd = () => {
 
   // }
 
-  // const handleDragOver = (event: { preventDefault: () => void }) => {
-  //   // prevent the default behaviour of the drop target to allow drop
-  //   event.preventDefault();
-  // }
+  const handleDragOver = (event: { preventDefault: () => void }) => {
+    // prevent the default behaviour of the drop target to allow drop
+    event.preventDefault();
+
+  }
 
   // const handleDragEnter = () => {
 
@@ -75,9 +97,14 @@ function Board() {
 
   // }
 
-  // const handleDrop = (event: { target: any; preventDefault: () => void; }) => {
-  //   event.preventDefault();
-  // }
+  const handleDrop = (destination: string) => {
+    //@ts-ignore
+    updateSectionMutation({
+      sourceid: choosenBoard.sourceid,
+      destinationid: destination,
+      taskid: choosenBoard.taskid,
+    })
+  }
 
   const handleEnter = (sectionname: string) => {
     if (sectionname) {
@@ -98,6 +125,9 @@ function Board() {
           heading={eachSection.section_name}
           contents={eachSection.tasks}
           createTaskMutation={createTaskMutation}
+          handleDrop={handleDrop}
+          handleDragOver={handleDragOver}
+          handleDragStart={handleDragStart}
         />
         )
       }
