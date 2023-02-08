@@ -13,8 +13,6 @@ import AppCard from './ChakraOverrides/AppCard';
 
 
 function Board() {
-
-  // const [choosenBoard, setChoosenBoard] = useState<EachCardType>({ id: "", title: "", description: "" });
   const { handleToast } = useHandleToast();
   const queryClient = useQueryClient();
 
@@ -25,13 +23,14 @@ function Board() {
   const { data, isLoading } = useQuery(GET_ALL_SECTIONS_API, () => makeGetRequest(GET_ALL_SECTIONS_API));
 
   // --- create new Section
-  const { mutate: createTaskMutation } = useMutation(
+  const { mutate: createSectionMutation } = useMutation(
     (formBody) => makePostRequest(CREATE_NEW_SECTION, { name: sectionName }),
     {
       onSuccess: (data: any) => {
         queryClient.invalidateQueries(GET_ALL_SECTIONS_API)
         handleToast("success", "success")
         setSectionName('')
+        setCreateNew(false)
 
       },
       onError: (err: any) => {
@@ -39,57 +38,52 @@ function Board() {
       }
     })
 
-  // // --- create new task
-  // const { mutate: createTaskMutation } = useMutation(
-  //   (formBody) => makePostRequest(CREAT_NEW_TASK("63a2296cb52a5d6638d61c06"), formBody),
-  //   {
-  //     onSuccess: (data: any) => {
-  //       queryClient.invalidateQueries(GET_TASKS_API)
-  //       handleToast("success", "success")
-  //     },
-  //     onError: (err: any) => {
-  //       handleToast("Something went wrong", "error")
-  //       // throw new Error("Somethings wrong in creating new section");
-  //     }
-  //   })
+  // --- create new task in a section
+  const { mutate: createTaskMutation } = useMutation(
+    //@ts-ignore
+    (formBody) => makePostRequest(CREAT_NEW_TASK(formBody.sectionId), { title: formBody.title, description: formBody.description }),
+    {
+      onSuccess: (data: any) => {
+        queryClient.invalidateQueries(GET_ALL_SECTIONS_API)
+        handleToast("success", "success")
+      },
+      onError: (err: any) => {
+        handleToast("Something went wrong", "error")
+      }
+    })
 
 
-  console.log(data)
 
+  // const handleDragStart = (singleBoardContents: EachCardType) => {
+  //   // setChoosenBoard(singleBoardContents)
+  // }
 
-  const handleDragStart = (singleBoardContents: EachCardType) => {
-    // setChoosenBoard(singleBoardContents)
-  }
+  // const handleDragEnd = () => {
 
-  const handleDragEnd = () => {
+  // }
 
-  }
+  // const handleDragOver = (event: { preventDefault: () => void }) => {
+  //   // prevent the default behaviour of the drop target to allow drop
+  //   event.preventDefault();
+  // }
 
-  const handleDragOver = (event: { preventDefault: () => void }) => {
-    // prevent the default behaviour of the drop target to allow drop
-    event.preventDefault();
-  }
+  // const handleDragEnter = () => {
 
-  const handleDragEnter = () => {
+  // }
 
-  }
+  // const handleDragLeave = () => {
 
-  const handleDragLeave = () => {
+  // }
 
-  }
+  // const handleDrop = (event: { target: any; preventDefault: () => void; }) => {
+  //   event.preventDefault();
+  // }
 
-  const handleDrop = (event: { target: any; preventDefault: () => void; }) => {
-    event.preventDefault();
-  }
   const handleEnter = (sectionname: string) => {
     if (sectionname) {
       //@ts-ignore
-      createTaskMutation()
+      createSectionMutation()
     }
-  }
-
-  const handleCreateSection = () => {
-    setCreateNew(pre => !pre)
   }
 
   return (
@@ -98,9 +92,12 @@ function Board() {
         ?
         <div>Loading</div>
         :
-        data?.map((eachSection: { section_name: string; tasks: EachCardType[] | undefined; }) => <BoardsSection
+        data?.map((eachSection: any) => <BoardsSection
+          key={eachSection._id}
+          id={eachSection._id}
           heading={eachSection.section_name}
           contents={eachSection.tasks}
+          createTaskMutation={createTaskMutation}
         />
         )
       }
@@ -118,11 +115,12 @@ function Board() {
           borderRadius={'0.25em'}
           width="100%"
           color="white"
-          bgColor="rgb(95, 95, 97)"
-          onClick={handleCreateSection}
+          bgColor="transparent"
+          border="1px solid rgb(95, 95, 97)"
+          onClick={() => setCreateNew(pre => !pre)}
           mb="1em"
         >
-          Create New Section
+          Add Section
         </Button>
 
         {createNew &&
@@ -143,21 +141,6 @@ function Board() {
           </AppCard>
         }
       </Box>
-      {/* {boardData?.map(eachBoardSection => {
-        return <BoardsSection
-          // @ts-ignore
-          sectionId={eachBoardSection.id}
-          // @ts-ignore
-          heading={eachBoardSection.section_name}
-          // @ts-ignore
-          contents={data}
-          handleDragEnter={handleDragEnter}
-          handleDrop={handleDrop}
-          handleDragOver={handleDragOver}
-          handleDragStart={handleDragStart}
-          handleCreateTask={handleCreateTask}
-        />
-      })} */}
     </Flex>
   )
 }

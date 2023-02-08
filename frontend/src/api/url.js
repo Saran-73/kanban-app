@@ -32,10 +32,11 @@ export const CREATE_NEW_SECTION = "/section/create-new";
 export const GET_TASKS_FOR_SINGLE_SECTION = (id) =>
   `tasks/get-sections-tasks/${id}`;
 
-// create new task in paritcular section - id is section id
+// create new task in paritcular section using section id
 // need token authentication
 //  POST
-export const CREAT_NEW_TASK = (id) => `tasks/create-task/${id}`;
+export const CREAT_NEW_TASK = (sectionid) =>
+  `section/task/create-task/${sectionid}`;
 
 // // create tasks
 // // need token authentication

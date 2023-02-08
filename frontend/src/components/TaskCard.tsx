@@ -36,7 +36,7 @@ function TaskCard({ title, handleDragStart, singleBoardContents }: { title: stri
 
             <Flex alignItems="center" gap="0.45em">
                 {/* <AppAvatar name={title} /> */}
-                <Text fontSize="xs" color="gray.500">{singleBoardContents.description}</Text>
+                <Text fontSize="xs" color="whiteAlpha.800">{singleBoardContents.description}</Text>
             </Flex>
 
         </AppCard>
