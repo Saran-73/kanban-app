@@ -1,12 +1,12 @@
 const express = require("express");
 const {
-  getAllTasksInSection,
+  // getAllTasksInSection,
   createNewTask,
 } = require("../handler/taskhandler");
 const protect = require("../middleware/authmiddleware");
 const router = express.Router();
 
-router.route("/").get(protect, getAllTasksInSection);
-router.route("/create-task/:id").post(protect, createNewTask);
+// router.route("/").get(protect, getAllTasksInSection);
+router.route("/create-task/:sectionid").post(protect, createNewTask);
 
 module.exports = router;

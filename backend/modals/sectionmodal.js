@@ -12,6 +12,7 @@ const sectionSchema = mongoose.Schema(
       required: true,
       default: "TO-DO",
     },
+    tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
   },
   {
     timestamps: true,

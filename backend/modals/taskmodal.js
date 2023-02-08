@@ -9,22 +9,21 @@ const taskSchema = mongoose.Schema(
     },
     title: {
       type: String,
-      default: ""
+      default: "",
     },
     description: {
       type: String,
-      default: ""
+      default: "",
     },
     section: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Section"
+      required: true,
+      ref: "Section",
     },
   },
   {
     timestamps: true,
   }
 );
-
-
 
 module.exports = mongoose.model("Task", taskSchema);

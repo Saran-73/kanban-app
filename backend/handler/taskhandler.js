@@ -2,87 +2,45 @@ const asyncHandler = require("express-async-handler");
 const TASKMODAL = require("../modals/taskmodal");
 const SECTIONMODAL = require("../modals/sectionmodal");
 
-// @desc get the tasks
+// @desc get all the tasks in a
 // @route GET /api/tasks
 // @access Private
-const getTasks = asyncHandler(async (req, res) => {
-  const TASKS = await TASKMODAL.find({user: req.user.id});
-  res.status(200).json(TASKS);
-});
+// const getAllTasksInSection = asyncHandler(async (req, res) => {
+//   const TASKS = await TASKMODAL.find({ user: req.user.id });
+//   res.status(200).json(TASKS);
+// });
 
-   
-// @desc create the tasks
-// @route POST /api/tasks/
+// @desc create new task
+// @route GET /api/section/task/create-task/:sectionid
 // @access Private
-const createTask = asyncHandler(async (req, res) => {
-
-  if (!req.body.title) {
-    throw new Error("Please provide title")
-  }
-
-  const createdSection = await SECTIONMODAL.create({
-    section_name: req.body.section_name
-  })
-
-  const tasks = await TASKMODAL.create({
-    user: req.user.id,
-    title: req.body.title,
-    description: req.body.description,
-    section: createdSection.id,
-  });
-
-  // ---- important concept but not needed here ---
-  // const populatedDataByReferringModals = await TASKMODAL.findOne({ title: tasks.title }).populate({
-  //   path: 'section',
-  //   select: 'section_name',
-  // }).exec(function (err, story) {
-  //   if (err) {
-  //     console.log(err)
-  //     throw new Error("err occured")
-  //   }
-  //   res.status(200).json(populatedDataByReferringModals);
-  // });
-s
-    res.status(200).json(tasks);
-
-});
-
-
-
-const createSection = asyncHandler(async (req, res) => {
-
-  const createdSection = await SECTIONMODAL.create({
-    section_name: req.body.section_name
-  })
-
-  res.status(200).json({
-    section_created_status: "success",
-    section_id: createdSection.id
-  })
-  
-})
-
-
-const getTasksForOneSection = asyncHandler(async (req, res) => {
-
-  const tasksOfSingleSection = await TASKMODAL.find({ section: req.params.id });
-
-  res.status(200).json(tasksOfSingleSection)
-})
-
 const createNewTask = asyncHandler(async (req, res) => {
   if (!req.body.title) {
-    throw new Error("Please provide title")
+    throw new Error("Please provide title");
   }
 
   const tasks = await TASKMODAL.create({
     user: req.user.id,
     title: req.body.title,
     description: req.body.description,
-    section: req.params.id,
+    section: req.params.sectionid,
   });
 
-  res.status(200).json({status: "success - new task created", new_task_title: tasks.title})
-})
+  const taskId = tasks.id;
 
-module.exports = { getTasks ,createTask, createSection, getTasksForOneSection, createNewTask}
+  const updateSection = await SECTIONMODAL.findByIdAndUpdate(
+    req.params.sectionid,
+    { $push: { tasks: taskId } },
+    { upsert: false, new: true }
+  );
+
+  res.status(200).json({
+    status: "success - new task created",
+    new_task_title: tasks.title,
+    taskId: tasks.id,
+  });
+});
+
+module.exports = {
+  // getAllTasksInSection,
+  createNewTask,
+};

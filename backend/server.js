@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/user", require("./routes/userroutes"));
 app.use("/api/section", require("./routes/sectionroutes"));
-// app.use("/api/section/tasks", require("./routes/taskroutes"));
+app.use("/api/section/task", require("./routes/taskroutes"));
 
 // override the default Express error handler
 app.use(errorHandler);
