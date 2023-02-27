@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider } from '@chakra-ui/react'
 import customTheme from "../src/theme/index.js"
 import { QueryClient, QueryClientProvider } from 'react-query'
+import "./theme/style.css"
 
 const queryClient = new QueryClient({
   defaultOptions: {

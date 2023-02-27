@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Button, Box, Input, Flex, Text } from '@chakra-ui/react'
+import { Button, Box, Input, Flex, Text, VStack, Stack } from '@chakra-ui/react'
 import { APP_LOGIN_PAGE } from '../navigation/routes'
 import { useNavigate, Link } from "react-router-dom";
 import { makePostRequest } from '../api/utlis';
@@ -42,48 +42,38 @@ function RegisterPage() {
   // const refInput = React.useRef()
 
   return (
-    <AppFlex variant="authPage" >
-      <AppBox variant={"registrationForm"} >
-        <Box maxW="420px" >
+    <AppFlex variant="authPage">
+      <AppBox flexBasis="50%" display="grid" alignContent="center">
+        <Box maxW="60%" ml={"6em"}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <label>
               Name:
             </label>
-            <Input type="text" placeholder="your name" size="md" {...register("name", { required: true })} />
-
-            {/* <AppInput
-              //@ts-ignore
-              // ref={refInput}
-              type='text'
-              placeholderText={'Your Name'}
-              size={'md'}
-              isRequired
-              {...register("name", { required: true })}
-            /> */}
-            {/* <AppInput
-              //@ts-ignore
-              // ref={refInput}
-              type='text'
-              placeholderText={'Your Organisation'}
-              size={'md'}
-              isRequired
-              {...register("organisation", { required: true })}
-             /> */}
-
+            <Input mb="1.25em" mt="0.5em" type="text" placeholder="your name" size="md" {...register("name", { required: true })} />
             <label>Email</label>
-            <Input type="email" placeholder="email" size="md" {...register("email", { required: true })} />
+            <Input mb="1.25em" mt="0.5em" type="email" placeholder="email" size="md" {...register("email", { required: true })} />
             <label>Password</label>
-            <Input type="password" placeholder="password" size="md" {...register("password", { required: true })} />
+            <Input
+              mb="1.25em"
+              mt="0.5em"
+              type="password"
+              placeholder="password"
+              size="md" {...register("password", { required: true })}
+
+            />
             <Button type="submit" variant="submitButton">Register</Button>
           </form>
+
+          <Text pt="1em" color="whiteAlpha.600">Already have an account?
+            <Link to={APP_LOGIN_PAGE}>
+              <Text as="span" color="whiteAlpha.800"> Login here</Text>
+            </Link>
+          </Text>
         </Box>
-        <Text pt="1em">Already have an account?
-          <Link to={APP_LOGIN_PAGE}>
-            <Text as="span" color="blue.700"> Login here</Text>
-          </Link>
-        </Text>
+
       </AppBox>
-    </AppFlex>
+      <Box flexBasis={'50%'} ></Box>
+    </AppFlex >
   )
 }
 

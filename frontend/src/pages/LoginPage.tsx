@@ -8,7 +8,7 @@ import { LOGIN_USER_API } from '../api/url';
 import { useNavigate, Link } from "react-router-dom";
 import { APP_DASHBOARD, APP_REGISTER_PAGE } from '../navigation/routes';
 import useHandleToast from '../hooks/useHandleToast';
-import  AppBox  from "../components/ChakraOverrides/AppBox";
+import AppBox from "../components/ChakraOverrides/AppBox";
 import AppFlex from '../components/ChakraOverrides/AppFlex';
 
 type FormType = {
@@ -19,7 +19,7 @@ type FormType = {
 function LoginPage() {
   const setTokenInZustand = useStore(state => state.setToken)
   const setIsAuthorised = useStore((state) => state.setIsAuthorised)
-  const {handleToast} = useHandleToast()
+  const { handleToast } = useHandleToast()
 
   const navigate = useNavigate()
 
@@ -53,25 +53,26 @@ function LoginPage() {
 
 
   return (
-    <AppFlex variant='authPage'>
-      <AppBox variant={"loginForm"}>
-        <Box maxW="420px" pt="1em" pb="1em">
+    <AppFlex variant="authPage">
+      <AppBox flexBasis="50%" display="grid" alignContent="center" >
+        <Box maxW="60%" ml={"6em"}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <label>Email</label>
             {/* @ts-ignore */}
-            <Input mt="6px" mb="8px" type="email" placeholder="email" size="md" {...register("email", { required: true })}  />
+            <Input mb="1.25em" mt="0.5em" type="email" placeholder="email" size="md" {...register("email", { required: true })} />
             <label>Password</label>
             {/* @ts-ignore */}
-            <Input  mt="6px" mb="8px" type="password" placeholder="password" size="md" {...register("password", { required: true })}  />
+            <Input mb="1.25em" mt="0.5em" type="password" placeholder="password" size="md" {...register("password", { required: true })} />
             <Button variant="submitButton" type="submit">Login</Button>
           </form>
+          <Text pt="1em" color="whiteAlpha.600">Don't have an account?
+            <Link to={APP_REGISTER_PAGE}>
+              <Text as="span" color="whiteAlpha.800"> Register here</Text>
+            </Link>
+          </Text>
         </Box>
-        <Text pt="1em">Don't have an account?
-          <Link to={APP_REGISTER_PAGE}>
-            <Text as="span" color="blue.700"> Register here</Text>
-          </Link>
-        </Text>
       </AppBox>
+      <Box flexBasis={'50%'}></Box>
     </AppFlex>
   )
 }
