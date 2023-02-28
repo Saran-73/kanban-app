@@ -8,12 +8,16 @@ type tabDataType = {
   }[];
 }
 
-const AppTabs = ( {tabData} : tabDataType ) => {
+const AppTabs = ({ tabData }: tabDataType) => {
+  const [tab, setTab] = React.useState(0)
 
   return (
-    <Tabs isLazy>
+    <Tabs
+      onChange={(index) => setTab(index)}
+    // isLazy
+    >
       <TabList>
-        {tabData.map((each: { name: string}) => <Tab>{each.name}</Tab>)}
+        {tabData.map((each: { name: string }) => <Tab>{each.name}</Tab>)}
       </TabList>
       <TabPanels>
         {tabData.map((each: any) =>

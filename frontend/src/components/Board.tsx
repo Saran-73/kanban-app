@@ -29,7 +29,6 @@ function Board() {
     {
       onSuccess: (data: any) => {
         queryClient.invalidateQueries(GET_ALL_SECTIONS_API)
-        handleToast("success", "success")
         setSectionName('')
         setCreateNew(false)
 
@@ -46,7 +45,6 @@ function Board() {
     {
       onSuccess: (data: any) => {
         queryClient.invalidateQueries(GET_ALL_SECTIONS_API)
-        handleToast("success", "success")
       },
       onError: (err: any) => {
         handleToast("Something went wrong", "error")
@@ -67,7 +65,6 @@ function Board() {
     {
       onSuccess: (data: any) => {
         queryClient.invalidateQueries(GET_ALL_SECTIONS_API)
-        handleToast("success", "success")
       },
       onError: (err: any) => {
         handleToast("Something went wrong", "error")
@@ -78,7 +75,6 @@ function Board() {
   const handleDragStart = (taskid: string, sourceid: string) => {
     setChoosenBoard({ taskid: taskid, sourceid: sourceid })
   }
-  console.log(choosenBoard)
   // const handleDragEnd = () => {
 
   // }
@@ -115,22 +111,22 @@ function Board() {
 
   return (
     <Flex columnGap={8} p="2em" h="100%" minH="90vh" bgColor={appColors.brandDarkGray["400"]}>
-      {isLoading
+      {/* {isLoading
         ?
         <div>Loading</div>
-        :
-        data?.map((eachSection: any) => <BoardsSection
-          key={eachSection._id}
-          id={eachSection._id}
-          heading={eachSection.section_name}
-          contents={eachSection.tasks}
-          createTaskMutation={createTaskMutation}
-          handleDrop={handleDrop}
-          handleDragOver={handleDragOver}
-          handleDragStart={handleDragStart}
-        />
-        )
-      }
+        : */}
+      {data?.map((eachSection: any) => <BoardsSection
+        key={eachSection._id}
+        id={eachSection._id}
+        heading={eachSection.section_name}
+        contents={eachSection.tasks}
+        createTaskMutation={createTaskMutation}
+        handleDrop={handleDrop}
+        handleDragOver={handleDragOver}
+        handleDragStart={handleDragStart}
+      />
+      )}
+      {/* } */}
 
       <Box
         w="20vw"
