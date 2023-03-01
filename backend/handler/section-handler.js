@@ -10,6 +10,14 @@ const createNewSection = asyncHandler(async (req, res) => {
     throw new Error("Please provide section name");
   }
 
+  const queryedSection = await SECTIONMODAL.exists({
+    section_name: req.body.name,
+  });
+  // if section already exist
+  if (!queryedSection) {
+    throw new Error("seciton already exists");
+  }
+
   const createdSection = await SECTIONMODAL.create({
     user: req.user.id,
     section_name: req.body.name,
