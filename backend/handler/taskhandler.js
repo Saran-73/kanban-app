@@ -18,19 +18,16 @@ const createNewTask = asyncHandler(async (req, res) => {
     throw new Error("seciton not found");
   }
 
-  const tasks = await TASKMODAL.create(
-    {
+  try {
+    const tasks = await TASKMODAL.create({
       user: req.user.id,
       title: req.body.title,
       description: req.body.description,
       status: req.body.section_name,
-    },
-    function (err) {
-      if (err) {
-        throw new Error("err while creating task");
-      }
-    }
-  );
+    });
+  } catch (err) {
+    throw new Error("err while creating task");
+  }
 
   res.status(200).json({
     created_status: "success",
@@ -44,13 +41,25 @@ const updateTask = asyncHandler(async (req, res) => {
   const taskId = req.params.taskid;
   const associatedSection = req.body.section_name;
 
-  // get that task and change its status
-  const task = await TASKMODAL.findByIdAndUpdate(taskId, {
-    status: associatedSection,
+  const queryedSection = await SECTIONMODAL.exists({
+    section_name: req.body.section_name,
   });
+  // if section didn't exist
+  if (!queryedSection) {
+    throw new Error("seciton not found");
+  }
+
+  // get that task and change its status
+  try {
+    const task = await TASKMODAL.findByIdAndUpdate(taskId, {
+      status: associatedSection,
+    });
+  } catch (err) {
+    throw new Error("err in updating the task check the id");
+  }
 
   res.status(200).json({
-    ...task,
+    status: "success",
   });
 });
 

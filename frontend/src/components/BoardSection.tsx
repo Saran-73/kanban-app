@@ -37,7 +37,7 @@ function BoardsSection({ heading, contents, id, createTaskMutation, handleDragEn
 
         if (e.key === "Enter" && title !== "") {
             // //@ts-ignore
-            createTaskMutation({ title: title, sectionId: id, description: description })
+            createTaskMutation({ title: title, description: description, section_name: heading })
             setCreateNew(false)
             setTitle('')
             setDescription('')

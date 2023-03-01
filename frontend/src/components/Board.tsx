@@ -41,7 +41,7 @@ function Board() {
   // --- create new task in a section
   const { mutate: createTaskMutation } = useMutation(
     //@ts-ignore
-    (formBody) => makePostRequest(CREAT_NEW_TASK(formBody.sectionId), { title: formBody.title, description: formBody.description }),
+    (formBody) => makePostRequest(CREAT_NEW_TASK, { title: formBody.title, description: formBody.description, section_name: formBody.section_name }),
     {
       onSuccess: (data: any) => {
         queryClient.invalidateQueries(GET_ALL_SECTIONS_API)
