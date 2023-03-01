@@ -15,10 +15,9 @@ const taskSchema = mongoose.Schema(
       type: String,
       default: "",
     },
-    section: {
-      type: mongoose.Schema.Types.ObjectId,
+    status: {
+      type: String,
       required: true,
-      ref: "Section",
     },
   },
   {
