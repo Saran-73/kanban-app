@@ -55,7 +55,7 @@ function BoardsSection({ heading, contents, id, createTaskMutation, handleDragEn
             p="1em 2em"
             borderRadius="0.45em"
             onDragEnter={handleDragEnter}
-            onDrop={() => handleDrop(id)}
+            onDrop={() => handleDrop(heading)}
             onDragOver={handleDragOver}
             bgColor={'rgba(40, 40, 43, 0.8)'}
         >

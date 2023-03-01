@@ -29,7 +29,8 @@ export const CREATE_NEW_SECTION = "/section/create-new";
 // create new section
 //  need token authentication
 //  PATCH
-export const UPDATE_SECTION_DATA = "/section/update";
+export const UPDATE_TASK_DATA = (taskid) =>
+  `/section/task/update-task/${taskid}`;
 
 // get all tasks from single section - id is section id
 //  need token authentication

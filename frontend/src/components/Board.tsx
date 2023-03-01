@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Input } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useMutation, useQuery, useQueryClient, } from 'react-query';
-import { GET_TASKS_API, CREATE_NEW_SECTION, GET_TASKS_FOR_SINGLE_SECTION, CREAT_NEW_TASK, GET_ALL_SECTIONS_API, UPDATE_SECTION_DATA } from '../api/url';
+import { GET_TASKS_API, CREATE_NEW_SECTION, GET_TASKS_FOR_SINGLE_SECTION, CREAT_NEW_TASK, GET_ALL_SECTIONS_API, UPDATE_TASK_DATA } from '../api/url';
 import { makeGetRequest, makePatchRequest, makePostRequest } from '../api/utlis';
 import BoardsSection from '../components/BoardSection';
 import useHandleToast from '../hooks/useHandleToast';
@@ -51,15 +51,11 @@ function Board() {
       }
     })
 
-  //  --- update section data on drag and drop           
-  const { mutate: updateSectionMutation } = useMutation(
-    (formBody) => makePatchRequest(UPDATE_SECTION_DATA, {
+  //  --- update task data on drag and drop           
+  const { mutate: updateTaskMutation } = useMutation(
+    (formBody) => makePatchRequest(UPDATE_TASK_DATA(choosenBoard.taskid), {
       //@ts-ignore
-      sourceid: formBody.sourceid,
-      //@ts-ignore
-      destinationid: formBody.destinationid,
-      //@ts-ignore
-      taskid: formBody.taskid
+      section_name: formBody.section_name,
     }
     ),
     {
@@ -67,6 +63,7 @@ function Board() {
         queryClient.invalidateQueries(GET_ALL_SECTIONS_API)
       },
       onError: (err: any) => {
+        console.error(err)
         handleToast("Something went wrong", "error")
       }
     })
@@ -93,12 +90,11 @@ function Board() {
 
   // }
 
-  const handleDrop = (destination: string) => {
+  const handleDrop = (sectionName: string) => {
     //@ts-ignore
-    updateSectionMutation({
-      sourceid: choosenBoard.sourceid,
-      destinationid: destination,
-      taskid: choosenBoard.taskid,
+    updateTaskMutation({
+      task_id: choosenBoard.taskid,
+      section_name: sectionName,
     })
   }
 
