@@ -13,8 +13,7 @@ const AppTabs = ({ tabData }: tabDataType) => {
 
   return (
     <Tabs
-      onChange={(index) => setTab(index)}
-    // isLazy
+      isLazy
     >
       <TabList>
         {tabData.map((each: { name: string }) => <Tab>{each.name}</Tab>)}

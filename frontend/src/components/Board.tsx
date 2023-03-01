@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Input } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useMutation, useQuery, useQueryClient, } from 'react-query';
 import { GET_TASKS_API, CREATE_NEW_SECTION, GET_TASKS_FOR_SINGLE_SECTION, CREAT_NEW_TASK, GET_ALL_SECTIONS_API, UPDATE_TASK_DATA } from '../api/url';
 import { makeGetRequest, makePatchRequest, makePostRequest } from '../api/utlis';
@@ -69,18 +69,18 @@ function Board() {
     })
 
 
-  const handleDragStart = (taskid: string, sourceid: string) => {
+  const handleDragStart = useCallback((taskid: string, sourceid: string) => {
     setChoosenBoard({ taskid: taskid, sourceid: sourceid })
-  }
+  }, [])
   // const handleDragEnd = () => {
 
   // }
 
-  const handleDragOver = (event: { preventDefault: () => void }) => {
+  const handleDragOver = useCallback((event: { preventDefault: () => void }) => {
     // prevent the default behaviour of the drop target to allow drop
     event.preventDefault();
 
-  }
+  }, [])
 
   // const handleDragEnter = () => {
 
@@ -90,20 +90,20 @@ function Board() {
 
   // }
 
-  const handleDrop = (sectionName: string) => {
+  const handleDrop = useCallback((sectionName: string) => {
     //@ts-ignore
     updateTaskMutation({
       task_id: choosenBoard.taskid,
       section_name: sectionName,
     })
-  }
+  }, [])
 
-  const handleEnter = (sectionname: string) => {
+  const handleEnter = useCallback((sectionname: string) => {
     if (sectionname) {
       //@ts-ignore
       createSectionMutation()
     }
-  }
+  }, [])
 
   return (
     <Flex columnGap={8} p="2em" h="100%" minH="90vh" bgColor={appColors.brandDarkGray["400"]}>
