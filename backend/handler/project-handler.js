@@ -6,7 +6,12 @@ const PROJECTMODAL = require("../modals/projectmodal");
 const createProject = asyncHandler(async (req, res) => {
   // user should be able to create more than one board or project
   // on create api create a project for the user
+
   const projectName = req.body.project_name;
+  if (projectName === "") {
+    throw new Error("provide project name");
+  }
+
   let response;
   try {
     response = await PROJECTMODAL.create({
