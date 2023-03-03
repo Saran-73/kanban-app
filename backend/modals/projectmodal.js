@@ -7,6 +7,10 @@ const projectSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
+    project_name: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

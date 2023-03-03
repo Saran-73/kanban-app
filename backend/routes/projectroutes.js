@@ -3,6 +3,6 @@ const { createProject } = require("../handler/project-handler");
 const protect = require("../middleware/authmiddleware");
 const router = express.Router();
 
-router.route("/").get(protect, createProject);
+router.route("/create").post(protect, createProject);
 
 module.exports = router;
