@@ -3,18 +3,21 @@ const TASKMODAL = require("../modals/taskmodal");
 const SECTIONMODAL = require("../modals/sectionmodal");
 
 // @desc create new task
-// @route POST /api/section/task/create-task
+// @route POST /api/section/task/create-task/:projectid
 // @access Private
+
+// if section doesn't exist in that project throw error
 const createNewTask = asyncHandler(async (req, res) => {
-  if (!req.body.title) {
+  if (!req.body.title || !req.params.projectid) {
     throw new Error("Please provide title");
   }
-
-  const queryedSection = await SECTIONMODAL.exists({
+  // check the precense of section in that project
+  const currentProjectSections = await SECTIONMODAL.find({
     section_name: req.body.section_name,
+    // project_id: req.params.projectid,
   });
 
-  if (!queryedSection) {
+  if (!sectionExists) {
     throw new Error("seciton not found");
   }
 
@@ -24,13 +27,16 @@ const createNewTask = asyncHandler(async (req, res) => {
       title: req.body.title,
       description: req.body.description,
       status: req.body.section_name,
+      project: req.params.projectid,
     });
   } catch (err) {
+    console.log(err);
     throw new Error("err while creating task");
   }
 
   res.status(200).json({
     created_status: "success",
+    d: currentProjectSections,
   });
 });
 

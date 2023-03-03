@@ -12,6 +12,11 @@ const sectionSchema = mongoose.Schema(
       required: true,
       default: "TO-DO",
     },
+    project_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Project",
+    },
   },
   {
     timestamps: true,
